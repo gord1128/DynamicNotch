@@ -34,7 +34,7 @@ struct NoInternetConnectionView: View {
     private var image: some View {
         ZStack {
             Image(systemName: "antenna.radiowaves.left.and.right")
-                .font(.system(size: 32))
+                .font(.system(.largeTitle))
                 .foregroundStyle(.green.gradient)
         }
     }
@@ -43,13 +43,13 @@ struct NoInternetConnectionView: View {
     private var titleAndDescription: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(verbatim: "No Internet Connection")
-                .font(.system(size: 14, weight: .semibold))
+                .font(Font.system(.subheadline).weight(.semibold))
                 .foregroundColor(.white)
                 .lineLimit(1)
 
             Text(verbatim: "Connect to Wi-Fi, Ethernet, or Personal Hotspot to continue.")
                 .foregroundColor(.white.opacity(0.56))
-                .font(.system(size: 11, weight: .medium))
+                .font(Font.system(.caption2).weight(.medium))
                 .lineLimit(2)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -62,7 +62,7 @@ struct NoInternetConnectionView: View {
                 onDismiss()
             }) {
                 Text(verbatim: "OK")
-                    .font(.system(size: 14))
+                    .font(.system(.subheadline))
                     .fontWeight(.medium)
                     .foregroundStyle(.white)
             }
@@ -73,7 +73,7 @@ struct NoInternetConnectionView: View {
                 onDismiss()
             }) {
                 Text(verbatim: "Settings")
-                    .font(.system(size: 14))
+                    .font(.system(.subheadline))
                     .fontWeight(.medium)
                     .foregroundStyle(.blue)
             }

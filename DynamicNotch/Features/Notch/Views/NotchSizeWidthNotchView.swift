@@ -24,7 +24,7 @@ struct NotchSizeWidthNotchView: View {
                 Image(systemName: "chevron.right")
             }
         }
-        .font(.system(size: 18))
+        .font(.system(.title3))
         .foregroundColor(.white)
         .padding(.horizontal, isDynamicIsland ? 12.scaled(by: scale) : 14.scaled(by: scale))
         .padding(.bottom, 10)

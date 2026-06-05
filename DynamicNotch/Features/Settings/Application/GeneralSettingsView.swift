@@ -89,11 +89,11 @@ struct GeneralSettingsView: View {
                 if !applicationSettings.isMenuBarIconVisible {
                     HStack {
                         Image(systemName: "exclamationmark.triangle.fill")
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(Font.system(.subheadline).weight(.semibold))
                             .foregroundStyle(Color.yellow)
                         
                         Text("You can access the menu by right-clicking on the notch area.")
-                            .font(.system(size: 10))
+                            .font(.system(.caption2))
                             .foregroundStyle(Color.secondary)
                     }
                 }
@@ -155,7 +155,7 @@ struct GeneralSettingsView: View {
                 if let unavailableDescriptionKey {
                     HStack(alignment: .center, spacing: 10) {
                         Image(systemName: "display.trianglebadge.exclamationmark")
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(Font.system(.subheadline).weight(.semibold))
                             .foregroundStyle(Color.orange)
 
                         Text(unavailableDescriptionKey)
@@ -195,16 +195,12 @@ struct GeneralSettingsView: View {
                 ) { language, isSelected in
                     
                     ZStack {
-                        if let assetName = language.flagAssetName {
-                            Image(assetName)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .clipShape(RoundedRectangle(cornerRadius: 6))
-                                .frame(width: 54, height: 54)
-                                
+                        if let emoji = language.flagEmoji {
+                            Text(emoji)
+                                .font(.system(size: 34))
                         } else {
                             Image(systemName: "globe")
-                                .font(.system(size: 20, weight: .semibold))
+                                .font(Font.system(.title2).weight(.semibold))
                                 .foregroundStyle(.primary)
                         }
                     }
@@ -214,11 +210,11 @@ struct GeneralSettingsView: View {
 
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundStyle(Color.yellow)
 
                     Text("Localization only works for settings, the notch remains in English.")
-                        .font(.system(size: 10))
+                        .font(.system(.caption2))
                         .foregroundStyle(Color.secondary)
                 }
             }
@@ -282,7 +278,7 @@ private struct SpecificDisplayPicker: View {
                 Spacer(minLength: 12)
 
                 Text(verbatim: selectedSpecificDisplay.name)
-                    .font(.system(size: 12))
+                    .font(.system(.caption))
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
                     .truncationMode(.tail)
@@ -311,11 +307,11 @@ private struct SpecificDisplayPicker: View {
             VStack(spacing: 8) {
                 VStack(spacing: 8) {
                     Image(systemName: display.symbolName)
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(Font.system(.title3).weight(.semibold))
                         .foregroundStyle(isSelected ? Color.accentColor : Color.primary)
                     
                     Text(verbatim: display.name)
-                        .font(.system(size: 11))
+                        .font(.system(.caption2))
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                         .foregroundStyle(Color.primary)
@@ -343,22 +339,22 @@ private struct SpecificDisplayPicker: View {
                 
                 if !display.isAvailable {
                     Text("settings.general.display.badge.unavailable")
-                        .font(.system(size: 10))
+                        .font(.system(.caption2))
                         .foregroundStyle(Color.orange)
                     
                 } else if display.isBuiltIn {
                     Text("settings.general.display.badge.builtin")
-                        .font(.system(size: 10))
+                        .font(.system(.caption2))
                         .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
                     
                 } else if display.isMain {
                     Text("settings.general.display.badge.main")
-                        .font(.system(size: 10))
+                        .font(.system(.caption2))
                         .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
                     
                 } else {
                     Text("settings.general.display.badge.external")
-                        .font(.system(size: 10))
+                        .font(.system(.caption2))
                         .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
                 }
             }

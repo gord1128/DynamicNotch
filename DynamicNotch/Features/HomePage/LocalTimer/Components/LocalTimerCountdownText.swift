@@ -15,7 +15,7 @@ struct LocalTimerCountdownText: View {
             let remaining = viewModel.remainingTime(at: context.date)
             let formatted = viewModel.formatTime(remaining)
             Text(formatted)
-                .font(.system(size: 14, design: .rounded))
+                .font(.system(.subheadline, design: .rounded))
                 .monospacedDigit()
                 .contentTransition(.numericText())
                 .animation(.snappy(duration: 0.28, extraBounce: 0.12), value: formatted)

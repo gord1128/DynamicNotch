@@ -52,17 +52,17 @@ struct AboutAppSettingsView: View {
     private var heroCard: some View {
         ZStack {
             VStack(spacing: 15) {
-                Image("logo")
+                Image(nsImage: NSApp.applicationIconImage ?? NSImage())
                     .resizable()
                     .frame(width: 60, height: 60)
                 
                 VStack(alignment: .center, spacing: 3) {
                     Text("Dynamic Notch")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(Font.system(.title3).weight(.semibold))
                         .accessibilityIdentifier("settings.about.title")
                     
                     Text("Make the cutout area more useful.")
-                        .font(.system(size: 10))
+                        .font(.system(.caption2))
                         .foregroundStyle(.secondary)
                     
                     RoundedRectangle(cornerRadius: 4, style: .continuous)
@@ -74,7 +74,7 @@ struct AboutAppSettingsView: View {
                         }
                         .overlay {
                             Text(appVersionText)
-                                .font(.system(size: 11, weight: .medium))
+                                .font(Font.system(.caption2).weight(.medium))
                         }
                         .padding(.top, 4)
                 }
@@ -101,20 +101,7 @@ struct AboutAppSettingsView: View {
                     }
                     .accessibilityIdentifier("settings.about.github")
                     
-                    Button(action: {
-                        let email = "evgeniy.petrukovich@icloud.com"
-                        let subject = "A question about Dynamic Notch"
-                        let body = ""
-                        let urlString = "mailto:\(email)?subject=\(subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&body=\(body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
-                        if let url = URL(string: urlString) {
-                            openURL(url)
-                        }
-                    }) {
-                        Image("email")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                    }
-                    .accessibilityIdentifier("settings.about.email")
+
                 }
                 .buttonStyle(.plain)
             }
@@ -317,10 +304,10 @@ private struct AboutFeatureRow: View {
             
             VStack(alignment: .leading, spacing: 6) {
                 Text(title)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Font.system(.callout).weight(.semibold))
                 
                 Text(description)
-                    .font(.system(size: 12))
+                    .font(.system(.caption))
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -336,12 +323,12 @@ private struct AboutLiveActivityPreviewNotchView: View {
         AboutMiniPreviewContainer {
             HStack(spacing: 0) {
                 Image(systemName: "moon.fill")
-                    .font(.system(size: 11, weight: .bold))
+                    .font(Font.system(.caption2).weight(.bold))
                 
                 Spacer(minLength: 8)
                 
                 Text("On")
-                    .font(.system(size: 11))
+                    .font(.system(.caption2))
             }
             .foregroundStyle(.indigo)
             .padding(.horizontal, 10)
@@ -365,7 +352,7 @@ private struct AboutTemporaryActivityPreviewNotchView: View {
         AboutMiniPreviewContainer {
             HStack(spacing: 6) {
                 Image(systemName: HudPresentationKind.volume.symbolName(for: level))
-                    .font(.system(size: 11, weight: .semibold))
+                    .font(Font.system(.caption2).weight(.semibold))
                     .foregroundStyle(.white.opacity(0.8))
                 
                 Spacer()
@@ -395,7 +382,7 @@ private struct AboutLockScreenPreviewNotchView: View {
         AboutMiniPreviewContainer {
             HStack(spacing: 0) {
                 Image(systemName: "lock.fill")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(Font.system(.caption).weight(.semibold))
                     .foregroundStyle(.white.opacity(0.8))
                 
                 Spacer(minLength: 0)

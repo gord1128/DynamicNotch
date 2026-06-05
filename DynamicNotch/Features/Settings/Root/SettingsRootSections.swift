@@ -425,8 +425,8 @@ private enum SettingsSectionCatalog {
                     "stroke",
                     "duration"
                 ],
-                systemImage: "headphones",
-                imageName: "bluetooth.white",
+                systemImage: "antenna.radiowaves.left.and.right",
+                imageName: nil,
                 tint: .blue,
                 resetGroup: .bluetooth
             )

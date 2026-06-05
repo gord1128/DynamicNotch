@@ -54,7 +54,7 @@ struct CustomPicker<Option: Hashable>: View {
             backgroundImageOpacity: backgroundImageOpacity
         ) { option, isSelected in
             Image(systemName: symbolName(option))
-                .font(.system(size: 18, weight: .semibold))
+                .font(Font.system(.title3).weight(.semibold))
                 .foregroundStyle(isSelected ? Color.accentColor : Color.primary)
         }
     }
@@ -194,7 +194,7 @@ struct CustomPicker<Option: Hashable>: View {
 
             if showsOptionTitle {
                 Text(title(option))
-                    .font(.system(size: 10))
+                    .font(.system(.caption2))
                     .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
                     .lineLimit(1)
                     .truncationMode(.tail)
@@ -218,7 +218,7 @@ struct CustomPicker<Option: Hashable>: View {
             Spacer(minLength: 12)
             
             Text(selectedHeaderValueTitle)
-                .font(.system(size: 12))
+                .font(.system(.caption))
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .truncationMode(.tail)

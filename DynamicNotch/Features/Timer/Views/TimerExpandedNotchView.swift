@@ -49,7 +49,7 @@ struct TimerExpandedNotchView: View {
                 }
             } label: {
                 Image(systemName: pauseButtonSymbol)
-                    .font(.system(size: 20))
+                    .font(.system(.title2))
                     .foregroundStyle(.orange)
             }
             .buttonStyle(PrimaryButtonStyle(width: 45, height: 45, backgroundColor: .orange.opacity(0.3)))
@@ -65,7 +65,7 @@ struct TimerExpandedNotchView: View {
                 }
             } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 20))
+                    .font(.system(.title2))
                     .bold()
                     .foregroundStyle(.white.opacity(0.8))
             }
@@ -77,13 +77,13 @@ struct TimerExpandedNotchView: View {
     private var rightContent: some View {
         HStack {
             Text(verbatim: "Timer")
-                .font(.system(size: 14))
+                .font(.system(.subheadline))
                 .foregroundStyle(Color.orange.opacity(0.8))
                 .offset(y: 8)
 
             TimelineView(.animation(minimumInterval: 0.25, paused: resolvedSnapshot.isPaused)) { context in
                 Text(formattedDuration(resolvedSnapshot.remainingTime(at: context.date)))
-                    .font(.system(size: 36, weight: .semibold, design: .rounded))
+                    .font(Font.system(.largeTitle, design: .rounded).weight(.semibold))
                     .monospacedDigit()
                     .foregroundStyle(Color.orange)
                     .contentTransition(.numericText())

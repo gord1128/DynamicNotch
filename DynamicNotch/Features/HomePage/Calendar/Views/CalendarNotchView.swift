@@ -48,15 +48,15 @@ struct CalendarNotchView: View {
             
             VStack(spacing: 5) {
                 Image(systemName: "calendar.badge.checkmark")
-                    .font(.system(size: 28, weight: .semibold))
+                    .font(Font.system(.title).weight(.semibold))
                     .foregroundColor(.gray.opacity(0.8))
                 
                 Text("No events today")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Font.system(.callout).weight(.semibold))
                     .foregroundColor(.white)
                 
                 Text("Enjoy your free time!")
-                    .font(.system(size: 12))
+                    .font(.system(.caption))
                     .foregroundColor(.gray.opacity(0.6))
             }
         }
@@ -112,16 +112,16 @@ struct CalendarNotchView: View {
     ) -> some View {
         VStack(spacing: 5) {
             Image(systemName: icon)
-                .font(.system(size: 28, weight: .semibold))
+                .font(Font.system(.title).weight(.semibold))
                 .foregroundStyle(color.gradient)
             
             Text(title)
-                .font(.system(size: 16, weight: .semibold))
+                .font(Font.system(.callout).weight(.semibold))
                 .lineLimit(1)
                 .foregroundColor(.white)
             
             Text(subtitle)
-                .font(.system(size: 12))
+                .font(.system(.caption))
                 .lineLimit(2)
                 .foregroundColor(.gray.opacity(0.6))
                 .multilineTextAlignment(.center)

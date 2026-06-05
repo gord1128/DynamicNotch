@@ -17,7 +17,7 @@ struct HudContentView: View {
             switch style {
             case .standard:
                 Text(verbatim: text)
-                    .font(.system(size: 14))
+                    .font(.system(.subheadline))
                     .foregroundColor(.white.opacity(0.8))
                 
                 Spacer(minLength: 12)

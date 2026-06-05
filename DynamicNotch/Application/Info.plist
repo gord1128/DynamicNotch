@@ -8,5 +8,7 @@
 	<string>DynamicNotch needs access to your calendar to display upcoming events in the notch.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>DynamicNotch needs access to your calendar to display upcoming events in the notch.</string>
+	<key>LSUIElement</key>
+	<true/>
 </dict>
 </plist>

@@ -32,13 +32,13 @@ struct LocalTimerSetupNotchView: View {
             timeInputField(title: "HR", value: $hours, maxVal: 23)
             
             Text(":")
-                .font(.system(size: 32, weight: .semibold, design: .rounded)).foregroundColor(.gray)
+                .font(Font.system(.largeTitle, design: .rounded).weight(.semibold)).foregroundColor(.gray)
                 .padding(.top, 10)
             
             timeInputField(title: "MIN", value: $minutes, maxVal: 59)
             
             Text(":")
-                .font(.system(size: 32, weight: .semibold, design: .rounded)).foregroundColor(.gray)
+                .font(Font.system(.largeTitle, design: .rounded).weight(.semibold)).foregroundColor(.gray)
                 .padding(.top, 10)
             
             timeInputField(title: "SEC", value: $seconds, maxVal: 59)
@@ -66,7 +66,7 @@ struct LocalTimerSetupNotchView: View {
                 localTimerViewModel.start(hours: h, minutes: m, seconds: s)
             } label: {
                 Image(systemName: "play.fill")
-                    .font(.system(size: 20))
+                    .font(.system(.title2))
                     .foregroundStyle(.green)
             }
             .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .green.opacity(0.3)))
@@ -76,12 +76,12 @@ struct LocalTimerSetupNotchView: View {
     private func timeInputField(title: String, value: Binding<String>, maxVal: Int) -> some View {
         VStack(spacing: 2) {
             Text(title)
-                .font(.system(size: 10, weight: .bold))
+                .font(Font.system(.caption2).weight(.bold))
                 .foregroundColor(.gray)
             
             TextField("00", text: value)
                 .textFieldStyle(PlainTextFieldStyle())
-                .font(.system(size: 36, weight: .semibold, design: .rounded))
+                .font(Font.system(.largeTitle, design: .rounded).weight(.semibold))
                 .foregroundStyle(Color.orange)
                 .multilineTextAlignment(.center)
                 .frame(width: 55)

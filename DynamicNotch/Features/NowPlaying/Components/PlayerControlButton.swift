@@ -30,11 +30,7 @@ struct PlayerControlButton: View {
         }
 
         var iconRotation: Double {
-            switch self {
-            case .neutral, .playPause: 0
-            case .backward: -7
-            case .forward: 7
-            }
+            0 // Removed custom rotation in favor of native SF Symbol bounce
         }
 
         var pulseOpacity: Double {
@@ -72,9 +68,8 @@ struct PlayerControlButton: View {
 
     @State private var pulseScale: CGFloat = 0.74
     @State private var pulseOpacity: Double = 0
-    @State private var iconScale: CGFloat = 1
     @State private var iconOffsetX: CGFloat = 0
-    @State private var iconRotation: Double = 0
+    @State private var bounceTrigger: Int = 0
 
     init(
         systemImage: String,
@@ -95,6 +90,10 @@ struct PlayerControlButton: View {
     var body: some View {
         Button(action: triggerAction) {
             ZStack {
+                Circle()
+                    .fill(.ultraThinMaterial)
+                    .overlay(Circle().strokeBorder(.white.opacity(0.15), lineWidth: 0.5))
+
                 RoundedRectangle(cornerRadius: min(width, height) * 0.5, style: .continuous)
                     .fill(feedbackStyle.pulseTint)
                     .opacity(pulseOpacity)
@@ -103,11 +102,11 @@ struct PlayerControlButton: View {
 
                 Image(systemName: systemImage)
                     .font(.system(size: fontSize, weight: .semibold))
-                    .foregroundStyle(.white.opacity(0.9))
-                    .scaleEffect(iconScale)
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundStyle(.white)
                     .offset(x: iconOffsetX)
-                    .rotationEffect(.degrees(iconRotation))
                     .contentTransition(.symbolEffect(.replace))
+                    .symbolEffect(.bounce, options: .speed(1.2), value: bounceTrigger)
                     .animation(.spring(response: 0.26, dampingFraction: 0.76), value: systemImage)
             }
         }
@@ -129,9 +128,8 @@ struct PlayerControlButton: View {
     private func startFeedback() {
         pulseScale = 0.74
         pulseOpacity = feedbackStyle.pulseOpacity
-        iconScale = 0.96
         iconOffsetX = 0
-        iconRotation = 0
+        bounceTrigger += 1 // Native SF Symbol bounce trigger
 
         withAnimation(.easeOut(duration: 0.22)) {
             pulseScale = feedbackStyle.pulseScale
@@ -139,16 +137,12 @@ struct PlayerControlButton: View {
         }
 
         withAnimation(.spring(response: 0.18, dampingFraction: 0.55)) {
-            iconScale = feedbackStyle.iconPeakScale
             iconOffsetX = feedbackStyle.iconTravel
-            iconRotation = feedbackStyle.iconRotation
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
             withAnimation(.spring(response: 0.28, dampingFraction: 0.74)) {
-                iconScale = 1
                 iconOffsetX = 0
-                iconRotation = 0
             }
         }
     }

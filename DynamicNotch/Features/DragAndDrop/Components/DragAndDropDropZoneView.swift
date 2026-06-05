@@ -52,14 +52,26 @@ struct DragAndDropDropZoneContent: View {
 
     var body: some View {
         RoundedRectangle(cornerRadius: AirDropDropZoneMetrics.cornerRadius)
-            .fill(isTargeted ? targetColor.opacity(0.2) : .clear.opacity(0))
-            .stroke(strokeColor, style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round, dash: [18, 10]))
+            .fill(.ultraThinMaterial)
+            .background(
+                RoundedRectangle(cornerRadius: AirDropDropZoneMetrics.cornerRadius)
+                    .fill(isTargeted ? targetColor.opacity(0.3) : .clear)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: AirDropDropZoneMetrics.cornerRadius)
+                    .strokeBorder(isTargeted ? targetColor : targetColor.opacity(0.3), lineWidth: isTargeted ? 2 : 1)
+            )
+            .shadow(color: isTargeted ? targetColor.opacity(0.5) : .clear, radius: isTargeted ? 12 : 0)
             .overlay {
-                VStack(spacing: 4) {
+                VStack(spacing: 6) {
                     target.icon(colorStyle: targetColorStyle)
+                        .symbolEffect(.bounce, value: isTargeted)
                     target.titleIcon(colorStyle: targetColorStyle)
                 }
-                .foregroundStyle(targetColor)
+                .foregroundStyle(isTargeted ? targetColor : .white.opacity(0.9))
+                .scaleEffect(isTargeted ? 1.05 : 1.0)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isTargeted)
             }
+            .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isTargeted)
     }
 }

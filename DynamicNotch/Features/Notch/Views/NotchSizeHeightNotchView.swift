@@ -18,7 +18,7 @@ struct NotchSizeHeightNotchView: View {
             Spacer()
             AnimatedLevelText(level: settingsViewModel.notchHeight, fontSize: isDynamicIsland ? 16 : 18)
         }
-        .font(.system(size: 18))
+        .font(.system(.title3))
         .foregroundColor(.white)
         .padding(.horizontal, isDynamicIsland ? 8.scaled(by: scale) : 16.scaled(by: scale))
     }

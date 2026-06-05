@@ -273,7 +273,11 @@ final class NotchEngine: ObservableObject {
     }
 
     private var highestPriorityVisibleActivity: NotchContentProtocol? {
-        activeLiveActivities.first { dismissedLiveActivityIDs.contains($0.id) == false }
+        print("DEBUG: activeLiveActivities = \(activeLiveActivities.map { $0.id })")
+        print("DEBUG: dismissedLiveActivityIDs = \(dismissedLiveActivityIDs)")
+        let best = activeLiveActivities.first { dismissedLiveActivityIDs.contains($0.id) == false }
+        print("DEBUG: best visible = \(best?.id ?? "nil")")
+        return best
     }
 
     private func recordDismissedLiveActivity(id: String) {
@@ -362,6 +366,10 @@ final class NotchEngine: ObservableObject {
                 }
                 restartTemporaryTimer(duration: duration)
             } else {
+                // 스플래시 화면이 표시 중일 때는 다른 임시 알림(블루투스 등)이 덮어쓰지 못하도록 무시합니다.
+                if notchModel.temporaryNotificationContent?.id == NotchContentRegistry.General.splash.id {
+                    return
+                }
                 await showTemporaryTransition(content, duration: duration)
             }
 
@@ -470,7 +478,11 @@ final class NotchEngine: ObservableObject {
     }
 
     private func transition(customDelay: TimeInterval? = nil, hide: @escaping () -> Void, show: @escaping () -> Void) {
-        guard !isTransitioning else { return }
+        guard !isTransitioning else {
+            hide()
+            show()
+            return
+        }
 
         isTransitioning = true
         let currentDelay = customDelay ?? hideDelay

@@ -39,7 +39,7 @@ struct HomePageSettingsView: View {
                     HStack(spacing: 12) {
                         Image(systemName: "line.3.horizontal")
                             .foregroundColor(.gray.opacity(0.5))
-                            .font(.system(size: 14))
+                            .font(.system(.subheadline))
                             .frame(width: 16)
                         
                         HStack(alignment: .center, spacing: 12) {

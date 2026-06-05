@@ -76,7 +76,7 @@ struct AdaptiveCustomPicker<Option: Hashable>: View {
             pickerButton(for: option, isSelected: isSelected)
 
             Text(title(option))
-                .font(.system(size: 10))
+                .font(.system(.caption2))
                 .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
                 .lineLimit(1)
                 .truncationMode(.tail)
@@ -135,7 +135,7 @@ struct AdaptiveCustomPicker<Option: Hashable>: View {
             Spacer(minLength: 12)
 
             Text(selectedHeaderValueTitle)
-                .font(.system(size: 12))
+                .font(.system(.caption))
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .truncationMode(.tail)

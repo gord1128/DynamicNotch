@@ -123,7 +123,7 @@ struct BluetoothSettingsView: View {
                     }
                 HStack {
                     Image(systemName: "airpodsmax")
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(Font.system(.callout).weight(.semibold))
                         .foregroundStyle(.white.opacity(0.8))
 
                     Spacer()
@@ -138,7 +138,7 @@ struct BluetoothSettingsView: View {
                     } else {
                         Text("78%")
                             .foregroundStyle(.green.gradient)
-                            .font(.system(size: 12))
+                            .font(.system(.caption))
                     }
                     
                 }
@@ -158,18 +158,18 @@ struct BluetoothSettingsView: View {
                 HStack {
                     HStack(spacing: 10) {
                         Image(systemName: "airpods.pro")
-                            .font(.system(size: 20))
+                            .font(.system(.title2))
                             .foregroundStyle(.white.opacity(0.8))
                         
                         VStack(alignment: .leading, spacing: 0) {
                             Text(verbatim: "Connected")
                                 .lineLimit(1)
-                                .font(.system(size: 10))
+                                .font(.system(.caption2))
                                 .foregroundStyle(.white.opacity(0.4))
                             
                             Text("AirPods Pro")
                                 .lineLimit(1)
-                                .font(.system(size: 12))
+                                .font(.system(.caption))
                                 .foregroundStyle(.white.opacity(0.8))
                         }
                     }
@@ -184,7 +184,7 @@ struct BluetoothSettingsView: View {
                             usesTintedTrackStroke: isBatteryStrokeActive
                         )
                         Text(String(describing: 78))
-                            .font(.system(size: 10))
+                            .font(.system(.caption2))
                             .foregroundStyle(.green)
                         
                     }

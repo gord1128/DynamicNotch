@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 protocol NotchSettingsProviding: AnyObject {
     var notchWidth: Int { get }
     var notchHeight: Int { get }

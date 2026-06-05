@@ -164,6 +164,7 @@ extension NSScreen {
         return screen(matchingDisplayID: selectedDisplayID)
     }
 
+    @MainActor
     static func preferredNotchScreen(for settings: any NotchSettingsProviding) -> NSScreen? {
         preferredNotchScreen(for: settings.screenSelectionPreferences)
     }
@@ -183,13 +184,26 @@ extension NSScreen {
             return nil
         }
 
+        var safeMenuWidth: CGFloat? = nil
+        if #available(macOS 12.0, *) {
+            if let leftArea = screen.auxiliaryTopLeftArea,
+               let rightArea = screen.auxiliaryTopRightArea {
+                let physicalNotchWidth = screen.frame.width - (leftArea.width + rightArea.width)
+                // The physical notch is the absolute safe limit for the idle capsule
+                // We allow a very small margin (e.g., 20px) before clamping.
+                safeMenuWidth = physicalNotchWidth + 20
+            }
+        }
+
         return (
             width: screen.frame.width,
             topInset: screen.safeAreaInsets.top,
-            notchSize: screen.notchSize
+            notchSize: screen.notchSize,
+            safeMenuWidth: safeMenuWidth
         )
     }
 
+    @MainActor
     static func metrics(for settings: any NotchSettingsProviding) -> NotchScreenMetrics? {
         metrics(for: settings.screenSelectionPreferences)
     }
@@ -272,7 +286,7 @@ extension NSScreen {
             }
 
             let notchWidth = frame.width - (leftArea.width + rightArea.width)
-            let notchHeight = leftArea.height
+            let notchHeight = safeAreaInsets.top
 
             guard notchWidth > 0 else { return nil }
 

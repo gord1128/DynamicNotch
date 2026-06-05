@@ -572,7 +572,7 @@ struct DebugActionRow: View {
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
             Image(systemName: systemImage)
-                .font(.system(size: 15, weight: .semibold))
+                .font(Font.system(.callout).weight(.semibold))
                 .foregroundStyle(.white)
                 .frame(width: 30, height: 30)
                 .background(
@@ -582,10 +582,10 @@ struct DebugActionRow: View {
             
             VStack(alignment: .leading, spacing: 3) {
                 Text(title)
-                    .font(.system(size: 13, weight: .medium))
+                    .font(Font.system(.footnote).weight(.medium))
                 
                 Text(description)
-                    .font(.system(size: 11))
+                    .font(.system(.caption2))
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }

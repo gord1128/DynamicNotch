@@ -189,7 +189,7 @@ struct LockScreenSettingsView: View {
 
             HStack(spacing: 8) {
                 Image(systemName: "lock.fill")
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(Font.system(.subheadline).weight(.semibold))
 
                 Spacer()
                 
@@ -423,7 +423,7 @@ private struct LockScreenWidgetAppearancePickerPreview: View {
                     VStack(alignment: .leading, spacing: 3) {
                         HStack(alignment: .center, spacing: 10) {
                             Text("Midnight Echoes")
-                                .font(.system(size: 18, weight: .medium))
+                                .font(Font.system(.title3).weight(.medium))
                                 .foregroundStyle(.white.opacity(0.82))
                                 .lineLimit(1)
 
@@ -433,7 +433,7 @@ private struct LockScreenWidgetAppearancePickerPreview: View {
                         }
 
                         Text("Debug Ensemble")
-                            .font(.system(size: 15))
+                            .font(.system(.callout))
                             .foregroundStyle(.white.opacity(0.5))
                             .lineLimit(1)
                     }
@@ -443,13 +443,13 @@ private struct LockScreenWidgetAppearancePickerPreview: View {
 
                 HStack(spacing: 10) {
                     Text("1:21")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .font(Font.system(.caption, design: .rounded).weight(.medium))
                         .foregroundStyle(.white.opacity(0.4))
 
                     previewProgressBar
 
                     Text("3:34")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .font(Font.system(.caption, design: .rounded).weight(.medium))
                         .foregroundStyle(.white.opacity(0.4))
                 }
 

@@ -168,7 +168,6 @@ private extension MediaRemoteNowPlayingService {
         process.arguments = resources.invocationArguments(
             for: [
                 "stream",
-                "--no-diff",
                 "--debounce=150"
             ]
         )
@@ -494,25 +493,36 @@ private extension MediaRemoteNowPlayingService {
     }
 
     private func makeSnapshot(from payload: AdapterPayload?) -> NowPlayingSnapshot? {
-        guard let payload, payload.isActive else { return nil }
+        guard let payload else { return nil }
+
+        let previous = lastSnapshot
+        let isSameSource = payload.playbackSource == nil || previous?.playbackSource == nil || payload.playbackSource?.preferredBundleIdentifier == previous?.playbackSource?.preferredBundleIdentifier
+        guard payload.isActive || (previous != nil && isSameSource) else { return nil }
+        let fallbackTitle = previous?.title ?? ""
+        let fallbackArtist = previous?.artist ?? ""
+        let fallbackAlbum = previous?.album ?? ""
+        
+        let newTitle = payload.title?.trimmed
+        let newArtist = payload.artist?.trimmed
+        let newAlbum = payload.album?.trimmed
 
         var snapshot = NowPlayingSnapshot(
-            title: payload.title?.trimmed ?? "",
-            artist: payload.artist?.trimmed ?? "",
-            album: payload.album?.trimmed ?? "",
-            duration: payload.durationSeconds,
-            elapsedTime: payload.elapsedSeconds,
-            playbackRate: payload.resolvedPlaybackRate,
-            artworkData: decodeArtworkData(payload.artworkData),
-            playbackSource: payload.playbackSource,
-            mediaType: payload.mediaType,
-            contentItemIdentifier: payload.contentItemIdentifier,
-            isShuffled: payload.resolvedShuffleState(previousSnapshot: lastSnapshot),
-            repeatMode: payload.resolvedRepeatMode(previousSnapshot: lastSnapshot),
-            volume: payload.resolvedVolume(previousSnapshot: lastSnapshot),
-            isFavorite: payload.resolvedFavoriteState(previousSnapshot: lastSnapshot),
-            supportsFavorite: payload.playbackSource?.supportsFavoriteCommand ?? false,
-            supportsVolumeControl: payload.playbackSource?.supportsVolumeCommand ?? false,
+            title: (newTitle?.isEmpty == false) ? newTitle! : fallbackTitle,
+            artist: (newArtist?.isEmpty == false) ? newArtist! : fallbackArtist,
+            album: (newAlbum?.isEmpty == false) ? newAlbum! : fallbackAlbum,
+            duration: payload.durationSeconds > 0 ? payload.durationSeconds : (previous?.duration ?? 0),
+            elapsedTime: payload.elapsedSeconds > 0 ? payload.elapsedSeconds : (previous?.elapsedTime ?? 0),
+            playbackRate: payload.playbackRate ?? previous?.playbackRate ?? (payload.playing == true ? 1 : 0),
+            artworkData: decodeArtworkData(payload.artworkData) ?? previous?.artworkData,
+            playbackSource: payload.playbackSource ?? previous?.playbackSource,
+            mediaType: payload.mediaType ?? previous?.mediaType,
+            contentItemIdentifier: payload.contentItemIdentifier ?? previous?.contentItemIdentifier,
+            isShuffled: payload.resolvedShuffleState(previousSnapshot: previous),
+            repeatMode: payload.resolvedRepeatMode(previousSnapshot: previous),
+            volume: payload.resolvedVolume(previousSnapshot: previous),
+            isFavorite: payload.resolvedFavoriteState(previousSnapshot: previous),
+            supportsFavorite: payload.playbackSource?.supportsFavoriteCommand ?? previous?.supportsFavorite ?? false,
+            supportsVolumeControl: payload.playbackSource?.supportsVolumeCommand ?? previous?.supportsVolumeControl ?? false,
             refreshedAt: .now
         )
 
@@ -526,10 +536,10 @@ private extension MediaRemoteNowPlayingService {
     }
 
     private func decodeArtworkData(_ base64String: String?) -> Data? {
-        guard let base64String else { return nil }
+        guard let base64String = base64String?.trimmingCharacters(in: .whitespacesAndNewlines), !base64String.isEmpty else { return nil }
 
         return Data(
-            base64Encoded: base64String.trimmingCharacters(in: .whitespacesAndNewlines),
+            base64Encoded: base64String,
             options: .ignoreUnknownCharacters
         )
     }

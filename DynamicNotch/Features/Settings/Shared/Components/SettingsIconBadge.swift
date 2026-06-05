@@ -65,6 +65,7 @@ struct SettingsIconBadge: View {
         switch iconSource {
         case .system(let systemImage):
             Image(systemName: systemImage)
+                .symbolRenderingMode(.hierarchical)
                 .font(.system(size: iconSize, weight: .semibold))
                 .foregroundStyle(.white)
 

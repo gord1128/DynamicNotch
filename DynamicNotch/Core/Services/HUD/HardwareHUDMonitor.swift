@@ -105,6 +105,7 @@ final class HardwareHUDMonitor {
     }
 }
 
+@MainActor
 extension HardwareHUDMonitor: SystemMediaKeyTapDelegate {
     func mediaKeyTap(
         _ tap: SystemMediaKeyTap,

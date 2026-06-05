@@ -10,6 +10,7 @@ import SwiftUI
 struct NowPlayingMinimalNotchView: View {
     @Environment(\.notchScale) var scale
     @Environment(\.isDynamicIsland) var isDynamicIsland
+    @Environment(\.isActivityPresentationHidden) var isActivityPresentationHidden
     
     @ObservedObject var nowPlayingViewModel: NowPlayingViewModel
     @ObservedObject var settings: MediaAndFilesSettingsStore
@@ -44,11 +45,10 @@ struct NowPlayingMinimalNotchView: View {
             )
             Spacer()
             
-            LightweightNowPlayingEqualizerView(
-                isPlaying: snapshot.isPlaying,
-                color: nowPlayingViewModel.artworkPalette.equalizerBaseColor
-            )
-            .frame(width: isDynamicIsland ? 14 : 18, height: isDynamicIsland ? 12 : 16)
+            Image(systemName: "waveform")
+                .symbolEffect(.variableColor.iterative.reversing, isActive: snapshot.isPlaying && !isActivityPresentationHidden)
+                .font(.system(size: isDynamicIsland ? 12 : 16, weight: .bold))
+                .foregroundStyle(Color(nsColor: nowPlayingViewModel.artworkPalette.equalizerBaseColor))
         }
         .padding(.horizontal, isDynamicIsland ? 10.scaled(by: scale) : 14.scaled(by: scale))
     }

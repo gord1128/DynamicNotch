@@ -76,9 +76,9 @@ struct LockScreenNowPlayingView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             MarqueeText(
                                 .constant(displayTitle(for: snapshot)),
-                                font: .system(size: 16, weight: .medium),
+                                font: .system(.headline, design: .rounded).weight(.medium),
                                 nsFont: .headline,
-                                textColor: .white.opacity(0.8),
+                                textColor: .secondary,
                                 backgroundColor: .clear,
                                 minDuration: 2.0,
                                 frameWidth: onTapArtwork ? 260.scaled(by: scale) : 180.scaled(by: scale)
@@ -86,9 +86,9 @@ struct LockScreenNowPlayingView: View {
 
                             MarqueeText(
                                 .constant(displayArtist(for: snapshot)),
-                                font: .system(size: 14),
+                                font: .system(.subheadline, design: .rounded),
                                 nsFont: .headline,
-                                textColor: .white.opacity(0.5),
+                                textColor: Color(nsColor: .tertiaryLabelColor),
                                 backgroundColor: .clear,
                                 minDuration: 3.0,
                                 frameWidth: onTapArtwork ? 260.scaled(by: scale) : 180.scaled(by: scale)
@@ -100,13 +100,10 @@ struct LockScreenNowPlayingView: View {
 
                     Spacer(minLength: 0)
                     
-                    LightweightNowPlayingEqualizerView(
-                        isPlaying: snapshot.isPlaying,
-                        color: NSColor.white.withAlphaComponent(0.7),
-                        barHeight: onTapArtwork ? 18 : 23,
-                        barWidth: 2.7
-                    )
-                    .frame(width: 23, height: 18)
+                    Image(systemName: "waveform")
+                        .symbolEffect(.variableColor.iterative.reversing, isActive: snapshot.isPlaying)
+                        .font(Font.system(onTapArtwork ? .title3 : .title2).weight(.bold))
+                        .foregroundStyle(.secondary)
                 }
             }
             Spacer()

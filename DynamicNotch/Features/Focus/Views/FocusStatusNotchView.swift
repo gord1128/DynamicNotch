@@ -40,19 +40,19 @@ private struct FocusStatusNotchView: View {
             case .iconsOnly:
                 HStack {
                     Image(systemName: icon)
-                        .font(.system(size: 16, weight: .bold))
+                        .font(Font.system(.callout).weight(.bold))
 
                     Spacer()
                 }
             case .standard:
                 HStack {
                     Image(systemName: icon)
-                        .font(.system(size: 16, weight: .bold))
+                        .font(Font.system(.callout).weight(.bold))
 
                     Spacer()
 
                     Text(verbatim: title)
-                        .font(.system(size: 14))
+                        .font(.system(.subheadline))
                         .lineLimit(1)
                 }
             }

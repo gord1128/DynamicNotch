@@ -108,14 +108,14 @@ struct FocusSettingsView: View {
             HStack(spacing: 0) {
                 if style == .iconsOnly {
                     Image(systemName: "moon.fill")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundStyle(.indigo)
                     
                     Spacer()
                     
                 } else {
                     Image(systemName: "moon.fill")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundStyle(.indigo)
                     
                     Spacer()

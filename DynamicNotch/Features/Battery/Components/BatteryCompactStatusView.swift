@@ -11,14 +11,14 @@ struct BatteryCompactStatusView: View {
     var body: some View {
         HStack {
             Text(verbatim: title)
-                .font(.system(size: 14))
+                .font(.system(.subheadline))
                 .foregroundColor(.white.opacity(0.8))
 
             Spacer()
 
             HStack(spacing: 6) {
                 Text("\(batteryLevel)%")
-                    .font(.system(size: 14))
+                    .font(.system(.subheadline))
                     .foregroundStyle(tint.gradient)
 
                 HStack(spacing: 1.5) {

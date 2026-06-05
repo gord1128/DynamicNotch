@@ -216,7 +216,7 @@ struct HUDSettingsView: View {
                 
                 HStack(spacing: 8) {
                     Image(systemName: "speaker.wave.2.fill")
-                        .font(.system(size: 13, weight: .semibold))
+                        .font(Font.system(.footnote).weight(.semibold))
                     
                     Spacer()
                     
@@ -238,7 +238,7 @@ struct HUDSettingsView: View {
                 
                 HStack(spacing: 8) {
                     Image(systemName: "speaker.wave.2.fill")
-                        .font(.system(size: 13, weight: .semibold))
+                        .font(Font.system(.footnote).weight(.semibold))
                     
                     Spacer()
                     

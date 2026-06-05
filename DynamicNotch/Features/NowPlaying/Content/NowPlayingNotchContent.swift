@@ -7,6 +7,7 @@ enum NowPlayingEvent: Equatable {
     case playbackStateChanged(isPlaying: Bool)
 }
 
+@MainActor
 struct NowPlayingNotchContent: NotchContentProtocol, DynamicIslandCustomizable {
     let id = NotchContentRegistry.Media.nowPlaying.id
     let nowPlayingViewModel: NowPlayingViewModel

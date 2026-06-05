@@ -188,10 +188,12 @@ private extension NotchView {
         if notchViewModel.topInset == 0 {
             contentOverlay
                 .environment(\.isDynamicIsland, true)
+                .environment(\.isActivityPresentationHidden, notchViewModel.isActivityPresentationHidden)
                 .clipShape(DynamicIslandShape(cornerRadius: notchViewModel.dynamicIslandCornerRadius))
         } else {
             contentOverlay
                 .environment(\.isDynamicIsland, false)
+                .environment(\.isActivityPresentationHidden, notchViewModel.isActivityPresentationHidden)
                 .clipShape(
                     NotchShape(
                         topCornerRadius: notchViewModel.interactiveCornerRadius.top,

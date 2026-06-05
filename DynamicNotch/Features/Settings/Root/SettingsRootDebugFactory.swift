@@ -116,7 +116,8 @@ extension SettingsRootViewModel {
             lockScreenManager: resolvedLockScreenManager,
             homePageViewModel: resolvedHomePageViewModel,
             localTimerViewModel: resolvedLocalTimerViewModel,
-            calendarViewModel: resolvedCalendarViewModel
+            calendarViewModel: resolvedCalendarViewModel,
+            shortcutsViewModel: ShortcutsViewModel()
         )
 
         return SettingsRootDebugDependencies(

@@ -47,9 +47,13 @@ final class HomePageSettingsStore: SettingsStoreBase {
         let savedOrder = (defaults.array(forKey: GeneralSettingsStorage.Keys.homePageOrder) as? [String]) ?? 
             ((GeneralSettingsStorage.defaultValues[GeneralSettingsStorage.Keys.homePageOrder] as? [String]) ?? [])
         var parsedOrder = savedOrder.compactMap { HomePages(rawValue: $0) }
-        if parsedOrder.isEmpty {
-            parsedOrder = HomePages.allCases
+        
+        for page in HomePages.allCases {
+            if !parsedOrder.contains(page) {
+                parsedOrder.append(page)
+            }
         }
+
         self.homePageOrder = parsedOrder
         
         let savedDisabled = (defaults.array(forKey: GeneralSettingsStorage.Keys.homePageDisabled) as? [String]) ??

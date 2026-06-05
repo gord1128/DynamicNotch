@@ -269,7 +269,7 @@ struct NotchSettingsView: View {
                 in: NotchContentPriority.priorityRange
             ) {
                 Text("\(applicationSettings.notchContentPriority(for: priorityKey))")
-                    .font(.system(size: 12, weight: .semibold, design: .rounded))
+                    .font(Font.system(.caption, design: .rounded).weight(.semibold))
                     .monospacedDigit()
                     .foregroundStyle(.secondary)
                     .frame(minWidth: 22, alignment: .trailing)

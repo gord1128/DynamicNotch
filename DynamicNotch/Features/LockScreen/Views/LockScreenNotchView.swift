@@ -24,7 +24,7 @@ struct LockScreenNotchView: View {
 
             if style == .enlarged {
                 Text(verbatim: lockScreenManager.isShowingLockPresentation ? "Locked" : "Unlocked")
-                    .font(.system(size: 14))
+                    .font(.system(.subheadline))
                     .foregroundColor(.white.opacity(0.8))
             }
         }

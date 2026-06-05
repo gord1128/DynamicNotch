@@ -116,8 +116,8 @@ final class SettingsPermissionController: NSObject, ObservableObject, CBCentralM
                 fallbackTitle: "Bluetooth",
                 descriptionKey: "settings.permissions.bluetooth.description",
                 fallbackDescription: "Allow Bluetooth access to read battery levels from supported accessories.",
-                assetImageName: "bluetooth.white",
-                systemImage: "dot.radiowaves.left.and.right",
+                assetImageName: nil,
+                systemImage: "antenna.radiowaves.left.and.right",
                 tintColor: .blue,
                 isGranted: bluetoothAuthorization == .allowedAlways,
                 actionTitleKey: bluetoothActionTitleKey,
@@ -190,8 +190,10 @@ final class SettingsPermissionController: NSObject, ObservableObject, CBCentralM
         }
     }
 
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        refresh()
+    nonisolated func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        Task { @MainActor in
+            refresh()
+        }
     }
 
     private func requestAccessibilityAccess() {

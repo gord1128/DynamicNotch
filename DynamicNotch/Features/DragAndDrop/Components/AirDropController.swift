@@ -47,19 +47,19 @@ final class NotchAirDropController: NSObject, ObservableObject {
             return false
         }
 
+        suppressTargetResetEvent = true
+        isTargeted = false
+        airDropViewModel.handleSuccessfulDrop()
+
         Task.detached(priority: .userInitiated) { [fileURLs] in
             do {
                 let batch = try ResolvedAirDropBatch.make(from: fileURLs)
 
                 await MainActor.run {
-                    self.suppressTargetResetEvent = true
-                    self.isTargeted = false
-                    self.airDropViewModel.handleSuccessfulDrop()
                     self.beginShare(with: batch)
                 }
             } catch {
                 await MainActor.run {
-                    self.isTargeted = false
                     self.present(error: error)
                 }
             }
@@ -106,19 +106,19 @@ final class NotchAirDropController: NSObject, ObservableObject {
     func handleDrop(_ providers: [NSItemProvider]) -> Bool {
         guard !providers.isEmpty else { return false }
 
+        suppressTargetResetEvent = true
+        isTargeted = false
+        airDropViewModel.handleSuccessfulDrop()
+
         Task.detached(priority: .userInitiated) { [providers] in
             do {
                 let batch = try await providers.resolveAirDropBatch()
 
                 await MainActor.run {
-                    self.suppressTargetResetEvent = true
-                    self.isTargeted = false
-                    self.airDropViewModel.handleSuccessfulDrop()
                     self.beginShare(with: batch)
                 }
             } catch {
                 await MainActor.run {
-                    self.isTargeted = false
                     self.present(error: error)
                 }
             }

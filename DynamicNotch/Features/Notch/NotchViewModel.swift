@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 
-typealias NotchScreenMetrics = (width: CGFloat, topInset: CGFloat, notchSize: CGSize?)
+typealias NotchScreenMetrics = (width: CGFloat, topInset: CGFloat, notchSize: CGSize?, safeMenuWidth: CGFloat?)
 
 enum NotchSwipeInteraction {
     case dismiss
@@ -116,6 +116,7 @@ final class NotchViewModel: ObservableObject {
         settings.notchExpandInteraction == .hover &&
         canExpandActiveLiveActivity
     }
+
 
     var notchPressHoldDuration: TimeInterval {
         settings.notchPressHoldDuration
@@ -232,6 +233,10 @@ final class NotchViewModel: ObservableObject {
         }
     }
     
+    var tapMovementTolerance: CGFloat {
+        20.0
+    }
+    
     var dynamicIslandCornerRadius: CGFloat {
         let height = presentedNotchSize.height
         if isDisplayingExpandedLiveActivity {
@@ -324,7 +329,14 @@ final class NotchViewModel: ObservableObject {
         
         if let notchSize = screenMetrics.notchSize {
             let baseWidth = notchSize.width + 14.scaled(by: scale) + widthOffset
-            let finalWidth = isDynamicIsland ? baseWidth * 0.85 : baseWidth
+            var finalWidth = isDynamicIsland ? baseWidth * 0.85 : baseWidth
+            
+            // Phase 4: Layout & UI Stability - Menu Bar Collision Defense
+            // If the calculated width is larger than the safe margin around the physical notch,
+            // clamp it to prevent overlapping with growing system menu bar text.
+            if let safeWidth = screenMetrics.safeMenuWidth, finalWidth > safeWidth {
+                finalWidth = safeWidth
+            }
             
             engine.updateBaseGeometry(
                 width: finalWidth,

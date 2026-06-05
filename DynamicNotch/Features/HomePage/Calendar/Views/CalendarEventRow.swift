@@ -44,7 +44,7 @@ struct CalendarEventRow: View {
                     
                     if let location = event.location, !location.isEmpty {
                         Text(location)
-                            .font(.system(size: 12))
+                            .font(.system(.caption))
                             .lineLimit(1)
                             .foregroundColor(.gray.opacity(0.8))
                     }
@@ -57,7 +57,7 @@ struct CalendarEventRow: View {
                         NSWorkspace.shared.open(url)
                     } label: {
                         Text("Join")
-                            .font(.system(size: 12, weight: .bold))
+                            .font(Font.system(.caption).weight(.bold))
                             .foregroundColor(.white)
                             .padding(.horizontal, 10)
                             .padding(.vertical, 4)

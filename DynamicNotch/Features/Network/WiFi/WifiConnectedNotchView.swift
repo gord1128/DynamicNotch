@@ -22,7 +22,7 @@ struct WifiConnectedNotchView: View {
             Text(verbatim: "Active")
                 .foregroundStyle(.white.opacity(0.8))
         }
-        .font(.system(size: 14))
+        .font(.system(.subheadline))
         .padding(.horizontal, isDynamicIsland ? 8.scaled(by: scale) : 16.scaled(by: scale))
         .padding(.vertical, isDynamicIsland ? 0 : 10)
     }
@@ -36,7 +36,7 @@ private struct AnimatedWifiIcon: View {
 
     var body: some View {
         Image(systemName: "wifi", variableValue: signalLevel)
-            .font(.system(size: 18, weight: .semibold))
+            .font(Font.system(.title3).weight(.semibold))
             .symbolRenderingMode(.hierarchical)
             .foregroundStyle(Color.white)
             .animation(.snappy(duration: 0.22, extraBounce: 0.08), value: signalLevel)

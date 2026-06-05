@@ -44,7 +44,7 @@ struct VpnConnectedNotchView: View {
                 compactView
             }
         }
-        .font(.system(size: 14))
+        .font(.system(.subheadline))
     }
     
     @ViewBuilder
@@ -56,7 +56,7 @@ struct VpnConnectedNotchView: View {
                     .frame(width: isDynamicIsland ? 40 : 24, height: isDynamicIsland ? 20 : 24)
                 
                 Image(systemName: "network.badge.shield.half.filled")
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(Font.system(.subheadline).weight(.semibold))
                     .foregroundStyle(Color.white.gradient)
             }
             Spacer()
@@ -77,14 +77,14 @@ struct VpnConnectedNotchView: View {
             HStack {
                 HStack(spacing: 16) {
                     Image(systemName: "network.badge.shield.half.filled")
-                        .font(.system(size: 30))
+                        .font(.system(.largeTitle))
                         .foregroundStyle(.white.opacity(0.8))
                         .padding(.bottom, 10)
                     
                     VStack(alignment: .leading, spacing: 3) {
                         Text(verbatim: "Connected")
                             .lineLimit(1)
-                            .font(.system(size: 13))
+                            .font(.system(.footnote))
                             .foregroundStyle(.white.opacity(0.4))
                         
                         MarqueeText(
@@ -102,7 +102,7 @@ struct VpnConnectedNotchView: View {
                 
                 Text(timeString)
                     .padding(.bottom, 10)
-                    .font(.system(size: 26, weight: .semibold, design: .rounded))
+                    .font(Font.system(.title, design: .rounded).weight(.semibold))
                     .monospacedDigit()
                     .foregroundStyle(Color.orange)
                     .contentTransition(.numericText())

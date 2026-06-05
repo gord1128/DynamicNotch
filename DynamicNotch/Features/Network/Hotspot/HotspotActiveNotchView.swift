@@ -17,20 +17,20 @@ struct HotspotActiveNotchView: View {
         HStack(spacing: 0) {
             if style == .minimal {
                 Image(systemName: "personalhotspot")
-                    .font(.system(size: 16, weight: .bold))
+                    .font(Font.system(.callout).weight(.bold))
                     .foregroundStyle(.green)
                 
                 Spacer()
                 
             } else {
                 Image(systemName: "personalhotspot")
-                    .font(.system(size: 16, weight: .bold))
+                    .font(Font.system(.callout).weight(.bold))
                     .foregroundStyle(.green)
                 
                 Spacer(minLength: 10)
                 
                 Text(verbatim: "On")
-                    .font(.system(size: 14))
+                    .font(.system(.subheadline))
                     .foregroundStyle(.green.opacity(0.8))
             }
         }

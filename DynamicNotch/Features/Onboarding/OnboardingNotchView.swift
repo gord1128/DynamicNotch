@@ -48,11 +48,11 @@ struct OnboardingNotchView: View {
                 Button(action: {
                     NSApp.terminate(nil)
                 }) {
-                    Text(verbatim: "Exit")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.red)
+                    Text(verbatim: "Quit")
+                        .font(Font.system(.footnote, design: .rounded).weight(.semibold))
+                        .foregroundStyle(.white)
                 }
-                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .red.opacity(0.2)))
+                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .red.opacity(0.35)))
                 
                 Spacer()
                 
@@ -60,10 +60,10 @@ struct OnboardingNotchView: View {
                     onStepChange(.second)
                 }) {
                     Text(verbatim: "Continue")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.blue)
+                        .font(Font.system(.footnote, design: .rounded).weight(.semibold))
+                        .foregroundStyle(.white)
                 }
-                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .blue.opacity(0.2)))
+                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: Color.accentColor.opacity(0.6)))
             }
             
         case .second:
@@ -76,10 +76,10 @@ struct OnboardingNotchView: View {
                     
                 }) {
                     Text(verbatim: "Open Settings")
-                        .fontWeight(.medium)
+                        .font(Font.system(.footnote, design: .rounded).weight(.semibold))
                         .foregroundStyle(.white)
                 }
-                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .gray.opacity(0.2)))
+                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .gray.opacity(0.4)))
                 
                 Spacer()
                 
@@ -87,63 +87,38 @@ struct OnboardingNotchView: View {
                     onStepChange(.third)
                 }) {
                     Text(verbatim: "Continue")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.blue)
+                        .font(Font.system(.footnote, design: .rounded).weight(.semibold))
+                        .foregroundStyle(.white)
                 }
-                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .blue.opacity(0.2)))
+                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: Color.accentColor.opacity(0.6)))
             }
             
         case .third:
             HStack {
-                Button(action: {
-                    guard let url = URL(string: "https://github.com/jackson-storm/DynamicNotch") else {
-                        return
-                    }
-                    openURL(url)
-                }) {
-                    Text(verbatim: "Open GitHub")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.white)
-                }
-                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .gray.opacity(0.2)))
-                
                 Spacer()
                 
                 Button(action: {
                     onStepChange(.fourth)
                 }) {
                     Text(verbatim: "Continue")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.blue)
+                        .font(Font.system(.footnote, design: .rounded).weight(.semibold))
+                        .foregroundStyle(.white)
                 }
-                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .blue.opacity(0.2)))
+                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: Color.accentColor.opacity(0.6)))
             }
 
         case .fourth:
             HStack {
-                Button(action: {
-                    guard let url = URL(string: "https://t.me/Dynamic_Notch") else {
-                        return
-                    }
-                    openURL(url)
-                    onFinish()
-                }) {
-                    Text(verbatim: "Open Telegram")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.white)
-                }
-                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .gray.opacity(0.2)))
-
                 Spacer()
 
                 Button(action: {
                     onFinish()
                 }) {
-                    Text(verbatim: "Finish")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.blue)
+                    Text(verbatim: "Get Started")
+                        .font(Font.system(.footnote, design: .rounded).weight(.bold))
+                        .foregroundStyle(.white)
                 }
-                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: .blue.opacity(0.2)))
+                .buttonStyle(PrimaryButtonStyle(height: 35, backgroundColor: Color.accentColor.opacity(0.8)))
             }
         }
     }

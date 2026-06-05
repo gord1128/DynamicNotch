@@ -215,7 +215,7 @@ struct NetworkSettingsView: View {
                             .frame(width: 40, height: 20)
                         
                         Image(systemName: "network.badge.shield.half.filled")
-                            .font(.system(size: 12, weight: .semibold))
+                            .font(Font.system(.caption).weight(.semibold))
                             .foregroundStyle(Color.white.gradient)
                     }
                     
@@ -242,18 +242,18 @@ struct NetworkSettingsView: View {
                 HStack {
                     HStack(spacing: 10) {
                         Image(systemName: "network.badge.shield.half.filled")
-                            .font(.system(size: 20))
+                            .font(.system(.title2))
                             .foregroundStyle(.white.opacity(0.8))
                         
                         VStack(alignment: .leading, spacing: 0) {
                             Text(verbatim: "Connected")
                                 .lineLimit(1)
-                                .font(.system(size: 10))
+                                .font(.system(.caption2))
                                 .foregroundStyle(.white.opacity(0.4))
                             
                             Text("WireGuard VPN")
                                 .lineLimit(1)
-                                .font(.system(size: 12))
+                                .font(.system(.caption))
                                 .foregroundStyle(.white.opacity(0.8))
                         }
                     }
@@ -261,7 +261,7 @@ struct NetworkSettingsView: View {
                     Spacer()
                 
                     Text("00:10")
-                        .font(.system(size: 14, design: .rounded))
+                        .font(.system(.subheadline, design: .rounded))
                         .foregroundStyle(.orange)
                         .monospacedDigit()
                         .contentTransition(.numericText())
@@ -287,7 +287,7 @@ struct NetworkSettingsView: View {
                 
                 HStack {
                     Image(systemName: "personalhotspot")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundStyle(.green)
                     
                     Spacer()
@@ -308,7 +308,7 @@ struct NetworkSettingsView: View {
                 
                 HStack(spacing: 10) {
                     Image(systemName: "personalhotspot")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundStyle(.green)
                     
                     Spacer()

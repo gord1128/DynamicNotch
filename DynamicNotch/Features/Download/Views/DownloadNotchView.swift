@@ -21,7 +21,7 @@ struct DownloadNotchView: View {
                     DownloadFileThumbnailView(url: url, size: isDynamicIsland ? 20 : 25)
                 } else {
                     Image(systemName: "document.fill")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundStyle(.white.opacity(0.8))
                         .frame(width: isDynamicIsland ? 20 : 25, height: isDynamicIsland ? 20 : 25)
                 }
@@ -45,7 +45,7 @@ struct DownloadNotchView: View {
             if settings.downloadsProgressIndicatorStyle == .circle {
                 if appearanceStyle == .detailed {
                     Text(speedLabel)
-                        .font(.system(size: 10, weight: .semibold, design: .rounded))
+                        .font(Font.system(.caption2, design: .rounded).weight(.semibold))
                         .foregroundStyle(Color.accentColor.opacity(0.8).gradient)
                         .lineLimit(1)
                 }

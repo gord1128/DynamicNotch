@@ -122,7 +122,7 @@ enum GeneralSettingsStorage {
 
     static let defaultValues: [String: Any] = [
         Keys.launchAtLogin: true,
-        Keys.dockIcon: false,
+        Keys.dockIcon: true,
         Keys.appearanceMode: SettingsAppearanceMode.system.rawValue,
         Keys.notchBackgroundStyle: NotchBackgroundStyle.black.rawValue,
         Keys.notchWidth: 0,
@@ -194,7 +194,7 @@ enum GeneralSettingsStorage {
         Keys.fileTrayRemoveButtonHidden: false,
         Keys.timerLiveActivityEnabled: true,
         Keys.timerDefaultStrokeEnabled: false,
-        Keys.screenRecordingLiveActivityEnabled: true,
+        Keys.screenRecordingLiveActivityEnabled: false,
         Keys.screenRecordingDefaultStrokeEnabled: false,
         LockScreenSettings.liveActivityKey: true,
         LockScreenSettings.soundKey: true,

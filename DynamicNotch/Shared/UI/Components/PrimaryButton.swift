@@ -16,9 +16,15 @@ struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: width, maxHeight: height)
-            .background(backgroundColor)
+            .background(
+                Capsule()
+                    .fill(.ultraThinMaterial)
+                    .overlay(Capsule().fill(backgroundColor))
+                    .overlay(Capsule().strokeBorder(.white.opacity(0.15), lineWidth: 0.5))
+            )
             .foregroundColor(foregroundColor)
-            .cornerRadius(30)
-            .opacity(configuration.isPressed ? 0.7 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.96 : 1.0)
+            .opacity(configuration.isPressed ? 0.8 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: configuration.isPressed)
     }
 }

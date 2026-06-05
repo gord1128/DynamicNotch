@@ -15,9 +15,11 @@ struct HomePageNotchContent: NotchContentProtocol, DynamicIslandCustomizable {
     let homePages: HomePages
     let localTimerViewModel: LocalTimerViewModel
     let calendarViewModel: CalendarViewModel
+    let shortcutsViewModel: ShortcutsViewModel
     
     var priority: Int { NotchContentRegistry.HomePage.active.priority }
     var isExpandable: Bool { true }
+    var expandsOnTap: Bool { true }
     
     var strokeColor: Color {
         if notchViewModel.isDisplayingExpandedLiveActivity {
@@ -69,6 +71,9 @@ struct HomePageNotchContent: NotchContentProtocol, DynamicIslandCustomizable {
             } else {
                 return baseHeight * 0.2
             }
+            
+        case .shortcuts:
+            return baseHeight * 0.2
         }
     }
     
@@ -98,6 +103,9 @@ struct HomePageNotchContent: NotchContentProtocol, DynamicIslandCustomizable {
             } else {
                 return .init(width: baseWidth + 130, height: baseHeight + 125)
             }
+            
+        case .shortcuts:
+            return .init(width: baseWidth + 160, height: baseHeight + 125)
         }
     }
 
@@ -130,6 +138,9 @@ struct HomePageNotchContent: NotchContentProtocol, DynamicIslandCustomizable {
             } else {
                 return .init(width: baseWidth + 160, height: baseHeight + 125)
             }
+            
+        case .shortcuts:
+            return .init(width: baseWidth + 160, height: baseHeight + 125)
         }
     }
     
@@ -141,6 +152,7 @@ struct HomePageNotchContent: NotchContentProtocol, DynamicIslandCustomizable {
                 settings: settings,
                 localTimerViewModel: localTimerViewModel,
                 calendarViewModel: calendarViewModel,
+                shortcutsViewModel: shortcutsViewModel,
                 initialPage: homePages
             )
         )
@@ -148,6 +160,6 @@ struct HomePageNotchContent: NotchContentProtocol, DynamicIslandCustomizable {
     
     @MainActor
     func makeView() -> AnyView {
-        AnyView(EmptyView())
+        AnyView(Color.clear)
     }
 }

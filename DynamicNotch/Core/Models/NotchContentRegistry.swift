@@ -8,6 +8,10 @@
 import Foundation
 
 enum NotchContentRegistry {
+    enum General {
+        static let splash = NotchContentDescriptor(id: "splash")
+    }
+
     enum HUD {
         static let system = NotchContentDescriptor(id: "hud.system")
         static let keyboard = NotchContentDescriptor(id: "hud.keyboard")

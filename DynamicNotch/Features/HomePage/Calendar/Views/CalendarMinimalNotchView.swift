@@ -16,7 +16,7 @@ struct CalendarMinimalNotchView: View {
             
             if calendarViewModel.nextEvent != nil {
                 Text(calendarViewModel.formattedNextEventTime)
-                    .font(.system(size: 14, design: .rounded))
+                    .font(.system(.subheadline, design: .rounded))
                     .foregroundStyle(.red)
                     .monospacedDigit()
             }

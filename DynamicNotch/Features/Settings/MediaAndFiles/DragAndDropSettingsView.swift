@@ -171,11 +171,11 @@ struct DragAndDropSettingsView: View {
             if mediaSettings.fileTrayUsageMode == .moveOriginals {
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundStyle(Color.yellow)
 
                     Text("If the original is moved to the tray and deleted from there, you can restore it in the system trash.")
-                        .font(.system(size: 10))
+                        .font(.system(.caption2))
                         .foregroundStyle(Color.secondary)
                 }
             }
@@ -271,7 +271,7 @@ struct DragAndDropSettingsView: View {
             HStack(spacing: 5) {
                 HStack(spacing: 5) {
                     Image(systemName: "tray.full.fill")
-                        .font(.system(size: 18))
+                        .font(.system(.title3))
                     AnimatedLevelText(level: trayPreviewItems.count, fontSize: 14)
                 }
                 .frame(width: 60, height: 30)
@@ -280,9 +280,9 @@ struct DragAndDropSettingsView: View {
 
                 HStack(spacing: 5) {
                     Image(systemName: "trash.fill")
-                        .font(.system(size: 16))
+                        .font(.system(.callout))
                     Text("All")
-                        .font(.system(size: 14))
+                        .font(.system(.subheadline))
                 }
                 .frame(width: 60, height: 30)
             }
@@ -399,14 +399,14 @@ struct DragAndDropSettingsView: View {
         var body: some View {
             VStack(spacing: 7) {
                 Image(systemName: item.systemImage)
-                    .font(.system(size: 34, weight: .semibold))
+                    .font(Font.system(.largeTitle).weight(.semibold))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundStyle(item.color)
                     .frame(width: 55, height: 47)
                     .padding(.top, 4)
 
                 Text(item.name)
-                    .font(.system(size: 10, weight: .medium))
+                    .font(Font.system(.caption2).weight(.medium))
                     .foregroundStyle(.white.opacity(0.86))
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
@@ -420,7 +420,7 @@ struct DragAndDropSettingsView: View {
             .overlay(alignment: .topTrailing) {
                 if showsRemoveButton {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundStyle(.white.opacity(0.58))
                         .background(Circle().fill(.black.opacity(0.28)))
                         .padding(.top, 5)

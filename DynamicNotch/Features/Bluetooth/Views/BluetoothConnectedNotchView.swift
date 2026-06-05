@@ -47,14 +47,14 @@ struct BluetoothConnectedNotchView: View {
                 detailedView
             }
         }
-        .font(.system(size: 14))
+        .font(.system(.subheadline))
     }
     
     @ViewBuilder
     private var compactView: some View {
         HStack {
             Image(systemName: bluetoothViewModel.deviceType.sfSymbol)
-                .font(.system(size: 18))
+                .font(.system(.title3))
                 .foregroundStyle(.white.opacity(0.8))
             
             Spacer()
@@ -87,14 +87,14 @@ struct BluetoothConnectedNotchView: View {
             HStack {
                 HStack(spacing: 16) {
                     Image(systemName: bluetoothViewModel.deviceType.sfSymbol)
-                        .font(.system(size: 30))
+                        .font(.system(.largeTitle))
                         .foregroundStyle(.white.opacity(0.8))
                         .padding(.bottom, 10)
                     
                     VStack(alignment: .leading, spacing: 3) {
                         Text(verbatim: "Connected")
                             .lineLimit(1)
-                            .font(.system(size: 13))
+                            .font(.system(.footnote))
                             .foregroundStyle(.white.opacity(0.4))
                         
                         MarqueeText(
@@ -120,7 +120,7 @@ struct BluetoothConnectedNotchView: View {
                     )
                     if let clampedLevel {
                         Text(String(describing: clampedLevel))
-                            .font(.system(size: 14))
+                            .font(.system(.subheadline))
                             .foregroundStyle(tint(for: clampedLevel))
                     }
                 }

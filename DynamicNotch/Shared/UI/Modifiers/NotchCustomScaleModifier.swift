@@ -24,7 +24,7 @@ struct NotchCustomScaleModifier: ViewModifier {
     let baseSize: CGSize
     
     private let scaleFactor: CGFloat = 1.04
-    private let tapMovementTolerance: CGFloat = 8
+    private var tapMovementTolerance: CGFloat { notchViewModel.tapMovementTolerance }
     
     func body(content: Content) -> some View {
         pressableContent(content)
@@ -182,8 +182,8 @@ private extension NotchCustomScaleModifier {
                 return
             }
 
-            pendingHoldExpansionToken = nil
             didCompleteExpandAction = true
+            isPressValidForTap = false
             performExpandHaptic()
             resetInteractionState(cancelScaleAnimation: true)
             notchViewModel.handleActiveContentTap()

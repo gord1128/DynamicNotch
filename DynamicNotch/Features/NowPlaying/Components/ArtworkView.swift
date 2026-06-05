@@ -52,7 +52,7 @@ struct ArtworkView: View {
                     .fill(.gray.opacity(0.2))
                     .overlay {
                         Image(systemName: "music.note")
-                            .font(.system(size: 14, weight: .bold))
+                            .font(Font.system(.subheadline).weight(.bold))
                             .foregroundStyle(.white.opacity(0.6))
                     }
             }

@@ -14,7 +14,7 @@ struct TimerCountdownText: View {
     var body: some View {
         TimelineView(.animation(minimumInterval: 0.25, paused: snapshot.isPaused)) { context in
             Text(timerViewModel.formatTime(snapshot.remainingTime(at: context.date)))
-                .font(.system(size: 14, design: .rounded))
+                .font(.system(.subheadline, design: .rounded))
                 .monospacedDigit()
                 .contentTransition(.numericText())
                 .animation(.snappy(duration: 0.28, extraBounce: 0.12), value: timerViewModel.formatTime(snapshot.remainingTime(at: context.date)))

@@ -13,6 +13,7 @@ final class AppContainer {
     let homePageViewModel = HomePageViewModel()
     let localTimerViewModel = LocalTimerViewModel()
     let calendarViewModel = CalendarViewModel()
+    let shortcutsViewModel = ShortcutsViewModel()
 
     let powerViewModel: PowerViewModel
     let downloadViewModel: DownloadViewModel
@@ -56,7 +57,8 @@ final class AppContainer {
         lockScreenManager: lockScreenManager,
         homePageViewModel: homePageViewModel,
         localTimerViewModel: localTimerViewModel,
-        calendarViewModel: calendarViewModel
+        calendarViewModel: calendarViewModel,
+        shortcutsViewModel: shortcutsViewModel
     )
 
     lazy var lockScreenPanelManager = LockScreenPanelManager(

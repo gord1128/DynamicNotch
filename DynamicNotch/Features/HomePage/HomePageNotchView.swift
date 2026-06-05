@@ -11,6 +11,7 @@ enum HomePages: String, CaseIterable, Hashable, Codable, Identifiable {
     case camera
     case localTimer
     case calendar
+    case shortcuts
     
     var id: String { rawValue }
     
@@ -19,6 +20,7 @@ enum HomePages: String, CaseIterable, Hashable, Codable, Identifiable {
         case .camera: return "Camera"
         case .localTimer: return "Timer"
         case .calendar: return "Calendar"
+        case .shortcuts: return "Shortcuts"
         }
     }
     
@@ -27,6 +29,7 @@ enum HomePages: String, CaseIterable, Hashable, Codable, Identifiable {
         case .camera: return "Quickly access the camera."
         case .localTimer: return "Set a quick timer."
         case .calendar: return "View upcoming events."
+        case .shortcuts: return "Run your Apple Shortcuts."
         }
     }
     
@@ -35,6 +38,7 @@ enum HomePages: String, CaseIterable, Hashable, Codable, Identifiable {
         case .camera: return "camera.fill"
         case .localTimer: return "timer"
         case .calendar: return "calendar"
+        case .shortcuts: return "bolt.fill"
         }
     }
     
@@ -43,6 +47,7 @@ enum HomePages: String, CaseIterable, Hashable, Codable, Identifiable {
         case .camera: return .blue
         case .localTimer: return .orange
         case .calendar: return .red
+        case .shortcuts: return .purple
         }
     }
 }
@@ -54,14 +59,16 @@ struct HomePageNotchView: View {
     let settings: HomePageSettingsStore
     let localTimerViewModel: LocalTimerViewModel
     let calendarViewModel: CalendarViewModel
+    let shortcutsViewModel: ShortcutsViewModel
     
     @State private var currentPage: HomePages?
     
-    init(notchViewModel: NotchViewModel, settings: HomePageSettingsStore, localTimerViewModel: LocalTimerViewModel, calendarViewModel: CalendarViewModel, initialPage: HomePages) {
+    init(notchViewModel: NotchViewModel, settings: HomePageSettingsStore, localTimerViewModel: LocalTimerViewModel, calendarViewModel: CalendarViewModel, shortcutsViewModel: ShortcutsViewModel, initialPage: HomePages) {
         self.notchViewModel = notchViewModel
         self.settings = settings
         self.localTimerViewModel = localTimerViewModel
         self.calendarViewModel = calendarViewModel
+        self.shortcutsViewModel = shortcutsViewModel
         self._currentPage = State(initialValue: initialPage)
     }
     
@@ -76,6 +83,14 @@ struct HomePageNotchView: View {
                         pageView(for: page)
                             .clipped()
                             .containerRelativeFrame(.horizontal)
+                            .onTapGesture {
+                                if activePages.count > 1, let currentIndex = activePages.firstIndex(of: page) {
+                                    let nextIndex = (currentIndex + 1) % activePages.count
+                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                        self.currentPage = activePages[nextIndex]
+                                    }
+                                }
+                            }
                     }
                 }
                 .scrollTargetLayout()
@@ -91,7 +106,8 @@ struct HomePageNotchView: View {
                             settings: settings,
                             homePages: newPage,
                             localTimerViewModel: localTimerViewModel,
-                            calendarViewModel: calendarViewModel
+                            calendarViewModel: calendarViewModel,
+                            shortcutsViewModel: shortcutsViewModel
                         )
                     )
                 )
@@ -109,7 +125,8 @@ struct HomePageNotchView: View {
                         settings: settings,
                         homePages: activePages.first ?? .camera,
                         localTimerViewModel: localTimerViewModel,
-                        calendarViewModel: calendarViewModel
+                        calendarViewModel: calendarViewModel,
+                        shortcutsViewModel: shortcutsViewModel
                     )
                 )
             )
@@ -120,11 +137,13 @@ struct HomePageNotchView: View {
     private func pageView(for page: HomePages) -> some View {
         switch page {
         case .camera:
-            CameraNotchView(notchViewModel: notchViewModel, settings: settings, localTimerViewModel: localTimerViewModel, calendarViewModel: calendarViewModel)
+            CameraNotchView(notchViewModel: notchViewModel, settings: settings, localTimerViewModel: localTimerViewModel, calendarViewModel: calendarViewModel, shortcutsViewModel: shortcutsViewModel)
         case .localTimer:
             LocalTimerSetupNotchView(localTimerViewModel: localTimerViewModel)
         case .calendar:
             CalendarNotchView(calendarViewModel: calendarViewModel, notchViewModel: notchViewModel)
+        case .shortcuts:
+            ShortcutsNotchView(shortcutsViewModel: shortcutsViewModel, notchViewModel: notchViewModel)
         }
     }
 }

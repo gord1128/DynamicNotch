@@ -19,7 +19,7 @@ struct CalendarExpandedNotchView: View {
                 }
             } else {
                 Text("No upcoming events")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Font.system(.callout).weight(.semibold))
                     .foregroundColor(.gray.opacity(0.6))
             }
         }
@@ -43,7 +43,7 @@ struct CalendarExpandedNotchView: View {
                 )
             } else {
                 Text("Empty Title")
-                    .font(.system(size: 22, weight: .bold))
+                    .font(Font.system(.title2).weight(.bold))
                     .foregroundColor(.gray.opacity(0.6))
                     .lineLimit(1)
             }
@@ -51,11 +51,11 @@ struct CalendarExpandedNotchView: View {
             HStack(spacing: 16) {
                 if event.isAllDay {
                     Text("All Day")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundColor(.red)
                 } else {
                     Text(timeString(from: event.startDate) + " - " + timeString(from: event.endDate))
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundColor(.red)
                 }
                 HStack(spacing: 6) {
@@ -64,7 +64,7 @@ struct CalendarExpandedNotchView: View {
                         .frame(width: 10, height: 10)
                     
                     Text(event.calendar.title)
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .lineLimit(1)
                         .foregroundColor(.gray.opacity(0.8))
                 }
@@ -72,7 +72,7 @@ struct CalendarExpandedNotchView: View {
             if let location = event.location, !location.isEmpty {
                 HStack {
                     Image(systemName: "mappin.and.ellipse")
-                        .font(.system(size: 12))
+                        .font(.system(.caption))
                         .foregroundColor(.gray)
                     
                     MarqueeText(
@@ -88,11 +88,11 @@ struct CalendarExpandedNotchView: View {
             } else {
                 HStack {
                     Image(systemName: "mappin.and.ellipse")
-                        .font(.system(size: 12))
+                        .font(.system(.caption))
                         .foregroundColor(.gray)
                     
                     Text("Empty Location")
-                        .font(.system(size: 12))
+                        .font(.system(.caption))
                         .lineLimit(1)
                         .foregroundColor(.gray.opacity(0.8))
                 }
@@ -108,7 +108,7 @@ struct CalendarExpandedNotchView: View {
                 calendarViewModel.deleteEvent(event)
             } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(Font.system(.title2).weight(.semibold))
                     .foregroundColor(.white)
             }
             .buttonStyle(PrimaryButtonStyle(width: 45, height: 45, backgroundColor: .gray.opacity(0.3)))

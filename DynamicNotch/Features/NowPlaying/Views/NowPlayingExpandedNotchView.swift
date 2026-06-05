@@ -92,9 +92,9 @@ struct NowPlayingExpandedNotchView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             MarqueeText(
                                 .constant(displayTitle(for: snapshot)),
-                                font: .system(size: 16, weight: .medium),
+                                font: .system(.headline, design: .rounded).weight(.semibold),
                                 nsFont: .headline,
-                                textColor: .white.opacity(0.8),
+                                textColor: .white,
                                 backgroundColor: .clear,
                                 minDuration: 2.0,
                                 frameWidth: 170
@@ -102,9 +102,9 @@ struct NowPlayingExpandedNotchView: View {
 
                             MarqueeText(
                                 .constant(displayArtist(for: snapshot)),
-                                font: .system(size: 14),
+                                font: .system(.subheadline, design: .rounded).weight(.medium),
                                 nsFont: .headline,
-                                textColor: .white.opacity(0.5),
+                                textColor: .white.opacity(0.7),
                                 backgroundColor: .clear,
                                 minDuration: 3.0,
                                 frameWidth: 170
@@ -117,13 +117,10 @@ struct NowPlayingExpandedNotchView: View {
 
                     Spacer(minLength: 0)
 
-                    LightweightNowPlayingEqualizerView(
-                        isPlaying: snapshot.isPlaying,
-                        color: nowPlayingViewModel.artworkPalette.equalizerBaseColor,
-                        barHeight: 23,
-                        barWidth: 2.7
-                    )
-                    .frame(width: 23, height: 18)
+                    Image(systemName: "waveform")
+                        .symbolEffect(.variableColor.iterative.reversing, isActive: snapshot.isPlaying)
+                        .font(Font.system(.title).weight(.bold))
+                        .foregroundStyle(Color(nsColor: nowPlayingViewModel.artworkPalette.equalizerBaseColor))
                 }
             }
             Spacer()
@@ -150,7 +147,7 @@ struct NowPlayingExpandedNotchView: View {
             ZStack {
                 HStack(spacing: 25) {
                     PlayerControlButton(
-                        systemImage: "backward.fill",
+                        systemImage: "backward.end.fill",
                         fontSize: 22,
                         width: 42,
                         height: 42,
@@ -170,7 +167,7 @@ struct NowPlayingExpandedNotchView: View {
                     }
 
                     PlayerControlButton(
-                        systemImage: "forward.fill",
+                        systemImage: "forward.end.fill",
                         fontSize: 22,
                         width: 42,
                         height: 42,

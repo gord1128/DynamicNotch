@@ -7,6 +7,7 @@ enum DynamicNotchLanguage: String, CaseIterable, Identifiable {
     case russian = "ru"
     case spanish = "es"
     case simplifiedChinese = "zh-Hans"
+    case korean = "ko"
 
     var id: String { rawValue }
 
@@ -42,6 +43,8 @@ enum DynamicNotchLanguage: String, CaseIterable, Identifiable {
             return "settings.language.option.spanish"
         case .simplifiedChinese:
             return "settings.language.option.chineseSimplified"
+        case .korean:
+            return "settings.language.option.korean"
         }
     }
 
@@ -49,18 +52,20 @@ enum DynamicNotchLanguage: String, CaseIterable, Identifiable {
         LocalizedStringKey(titleKeyString)
     }
 
-    var flagAssetName: String? {
+    var flagEmoji: String? {
         switch self {
         case .system:
-            return nil
+            return "⚙️"
         case .english:
-            return "english"
+            return "🇺🇸"
         case .russian:
-            return "russian"
+            return "🇷🇺"
         case .spanish:
-            return "spanish"
+            return "🇪🇸"
         case .simplifiedChinese:
-            return "chinese"
+            return "🇨🇳"
+        case .korean:
+            return "🇰🇷"
         }
     }
 
@@ -76,6 +81,8 @@ enum DynamicNotchLanguage: String, CaseIterable, Identifiable {
             return "Spanish"
         case .simplifiedChinese:
             return "Simplified Chinese"
+        case .korean:
+            return "Korean"
         }
     }
 
@@ -91,6 +98,8 @@ enum DynamicNotchLanguage: String, CaseIterable, Identifiable {
             return "Español"
         case .simplifiedChinese:
             return "简体中文"
+        case .korean:
+            return "한국어"
         }
     }
 
@@ -106,6 +115,8 @@ enum DynamicNotchLanguage: String, CaseIterable, Identifiable {
             return [Color.orange, Color.red]
         case .simplifiedChinese:
             return [Color.red, Color.orange]
+        case .korean:
+            return [Color.blue, Color.red]
         }
     }
 

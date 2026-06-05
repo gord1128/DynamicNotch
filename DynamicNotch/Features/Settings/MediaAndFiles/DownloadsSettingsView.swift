@@ -102,7 +102,7 @@ struct DownloadsSettingsView: View {
                 HStack(spacing: 8) {
                     Image(systemName: "document.fill")
                         .foregroundStyle(.white)
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(Font.system(.callout).weight(.semibold))
                     
                     Spacer()
                     
@@ -133,7 +133,7 @@ struct DownloadsSettingsView: View {
                 
                 HStack(spacing: 8) {
                     Text(previewDownload.displayName)
-                        .font(.system(size: 12, weight: .medium))
+                        .font(Font.system(.caption).weight(.medium))
                         .foregroundStyle(.white.opacity(0.82))
                         .lineLimit(1)
                     
@@ -141,7 +141,7 @@ struct DownloadsSettingsView: View {
                     
                     if mediaSettings.downloadsProgressIndicatorStyle == .circle {
                         Text(speedLabel)
-                            .font(.system(size: 9, weight: .semibold, design: .rounded))
+                            .font(Font.system(.caption2, design: .rounded).weight(.semibold))
                             .foregroundStyle(Color.accentColor.opacity(0.8).gradient)
                             .lineLimit(1)
                             .minimumScaleFactor(0.8)
@@ -167,7 +167,7 @@ struct DownloadsSettingsView: View {
                                 percentFontSize: 10
                             )
                             Text(speedLabel)
-                                .font(.system(size: 8, weight: .semibold, design: .rounded))
+                                .font(Font.system(.caption2, design: .rounded).weight(.semibold))
                                 .foregroundStyle(Color.accentColor.opacity(0.8).gradient)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.8)

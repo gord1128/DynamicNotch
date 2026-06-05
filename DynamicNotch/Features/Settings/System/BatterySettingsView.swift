@@ -320,7 +320,7 @@ struct BatterySettingsView: View {
 
                 HStack(spacing: 6) {
                     Text("\(batteryLevel)%")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .font(Font.system(.caption, design: .rounded).weight(.medium))
                         .foregroundStyle(tint)
 
                     batteryCompactIndicator(
@@ -340,12 +340,12 @@ struct BatterySettingsView: View {
         HStack(spacing: 5) {
             if kind == .low {
                 Text(verbatim: "Battery Low")
-                    .font(.system(size: 10.5, weight: .semibold))
+                    .font(Font.system(.caption2).weight(.semibold))
                     .foregroundStyle(.white.opacity(0.82))
                     .lineLimit(1)
             } else {
                 Text(verbatim: "Full Battery")
-                    .font(.system(size: 10.5, weight: .semibold))
+                    .font(Font.system(.caption2).weight(.semibold))
                     .foregroundStyle(.white.opacity(0.82))
                     .lineLimit(1)
             }
@@ -360,12 +360,12 @@ struct BatterySettingsView: View {
     private func batteryStandardDescription(for kind: BatteryNotificationPreviewKind) -> some View {
         if kind == .low {
             Text(verbatim: "Turn on Low Power Mode or it\nis recommended to charge it.")
-                .font(.system(size: 8.5, weight: .medium))
+                .font(Font.system(.caption2).weight(.medium))
                 .foregroundStyle(.white.opacity(0.45))
                 .lineLimit(2)
         } else {
             Text(verbatim: "Your Mac is fully charged.")
-                .font(.system(size: 9, weight: .medium))
+                .font(Font.system(.caption2).weight(.medium))
                 .foregroundStyle(.white.opacity(0.45))
                 .lineLimit(1)
         }

@@ -39,6 +39,7 @@ struct SystemMediaKeyTapConfiguration {
     }
 }
 
+@MainActor
 protocol SystemMediaKeyTapDelegate: AnyObject {
     func mediaKeyTap(
         _ tap: SystemMediaKeyTap,
@@ -143,10 +144,18 @@ final class SystemMediaKeyTap {
     private func handleEvent(type: CGEventType, event: CGEvent) -> Unmanaged<CGEvent>? {
         if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
             if let eventTap, configuration.interceptsAnyMediaKey {
-                CGEvent.tapEnable(tap: eventTap, enable: true)
-                isTapEnabled = true
+                if AXIsProcessTrusted() {
+                    CGEvent.tapEnable(tap: eventTap, enable: true)
+                    isTapEnabled = true
+                } else {
+                    isTapEnabled = false
+                    NSLog("Accessibility revoked: Event tap disabled to prevent WindowServer freeze.")
+                    DispatchQueue.main.async { [weak self] in
+                        self?.stop()
+                    }
+                }
             }
-            return Unmanaged.passUnretained(event)
+            return nil
         }
 
         guard let systemDefinedEvent,
@@ -172,35 +181,45 @@ final class SystemMediaKeyTap {
             guard configuration.interceptVolume else {
                 return Unmanaged.passUnretained(event)
             }
-            delegate?.mediaKeyTap(self, didReceiveVolumeCommand: .increase, granularity: granularity, modifiers: nsEvent.modifierFlags)
+            MainActor.assumeIsolated {
+                delegate?.mediaKeyTap(self, didReceiveVolumeCommand: .increase, granularity: granularity, modifiers: nsEvent.modifierFlags)
+            }
             return nil
 
         case MediaKeyCode.volumeDown:
             guard configuration.interceptVolume else {
                 return Unmanaged.passUnretained(event)
             }
-            delegate?.mediaKeyTap(self, didReceiveVolumeCommand: .decrease, granularity: granularity, modifiers: nsEvent.modifierFlags)
+            MainActor.assumeIsolated {
+                delegate?.mediaKeyTap(self, didReceiveVolumeCommand: .decrease, granularity: granularity, modifiers: nsEvent.modifierFlags)
+            }
             return nil
 
         case MediaKeyCode.mute:
             guard configuration.interceptVolume else {
                 return Unmanaged.passUnretained(event)
             }
-            delegate?.mediaKeyTapDidToggleMute(self)
+            MainActor.assumeIsolated {
+                delegate?.mediaKeyTapDidToggleMute(self)
+            }
             return nil
 
         case MediaKeyCode.brightnessUp:
             guard configuration.interceptBrightness else {
                 return Unmanaged.passUnretained(event)
             }
-            delegate?.mediaKeyTap(self, didReceiveBrightnessCommand: .increase, granularity: granularity, modifiers: nsEvent.modifierFlags)
+            MainActor.assumeIsolated {
+                delegate?.mediaKeyTap(self, didReceiveBrightnessCommand: .increase, granularity: granularity, modifiers: nsEvent.modifierFlags)
+            }
             return nil
 
         case MediaKeyCode.brightnessDown:
             guard configuration.interceptBrightness else {
                 return Unmanaged.passUnretained(event)
             }
-            delegate?.mediaKeyTap(self, didReceiveBrightnessCommand: .decrease, granularity: granularity, modifiers: nsEvent.modifierFlags)
+            MainActor.assumeIsolated {
+                delegate?.mediaKeyTap(self, didReceiveBrightnessCommand: .decrease, granularity: granularity, modifiers: nsEvent.modifierFlags)
+            }
             return nil
 
         default:

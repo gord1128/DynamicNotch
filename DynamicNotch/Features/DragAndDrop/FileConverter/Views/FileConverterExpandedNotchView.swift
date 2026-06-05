@@ -90,7 +90,7 @@ struct FileConverterExpandedActiveNotchView: View {
             .buttonStyle(.plain)
             
             Image(systemName: "arrow.right")
-                .font(.system(size: 20, weight: .semibold))
+                .font(Font.system(.title2).weight(.semibold))
                 .foregroundStyle(.white.opacity(0.45))
             
             Menu {
@@ -112,11 +112,11 @@ struct FileConverterExpandedActiveNotchView: View {
                     VStack(spacing: 4) {
                         Text(fileConverterViewModel.selectedFormat.title)
                             .lineLimit(1)
-                            .font(.system(size: 17, weight: .bold))
+                            .font(Font.system(.title3).weight(.bold))
                         
                         Text(verbatim: "Format")
                             .lineLimit(1)
-                            .font(.system(size: 10, weight: .medium))
+                            .font(Font.system(.caption2).weight(.medium))
                             .foregroundStyle(.white.opacity(0.58))
                     }
                     
@@ -132,7 +132,7 @@ struct FileConverterExpandedActiveNotchView: View {
                             
                             Image(systemName: "checkmark")
                                 .foregroundStyle(Color.white)
-                                .font(.system(size: 12, weight: .semibold))
+                                .font(Font.system(.caption).weight(.semibold))
                         }
                         .offset(x: -60, y: 45)
                         
@@ -144,7 +144,7 @@ struct FileConverterExpandedActiveNotchView: View {
                             
                             Image(systemName: "exclamationmark")
                                 .foregroundStyle(Color.black)
-                                .font(.system(size: 12, weight: .semibold))
+                                .font(Font.system(.caption).weight(.semibold))
                         }
                         .offset(x: -60, y: 45)
                         

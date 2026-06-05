@@ -225,7 +225,7 @@ private struct NowPlayingAppearancePreview: View {
                         )
                         .overlay {
                             Image(systemName: "music.note")
-                                .font(.system(size: 16, weight: .bold))
+                                .font(Font.system(.callout).weight(.bold))
                                 .foregroundStyle(.white.opacity(0.82))
                         }
                         .frame(width: 54, height: 54)
@@ -233,7 +233,7 @@ private struct NowPlayingAppearancePreview: View {
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(alignment: .center, spacing: 8) {
                             Text("Midnight Echoes")
-                                .font(.system(size: 15, weight: .medium))
+                                .font(Font.system(.callout).weight(.medium))
                                 .foregroundStyle(.white.opacity(0.85))
                                 .lineLimit(1)
                             
@@ -257,7 +257,7 @@ private struct NowPlayingAppearancePreview: View {
                             
                         }
                         Text("Debug Ensemble")
-                            .font(.system(size: 13))
+                            .font(.system(.footnote))
                             .foregroundStyle(.white.opacity(0.5))
                             .lineLimit(1)
                     }
@@ -265,7 +265,7 @@ private struct NowPlayingAppearancePreview: View {
                 
                 HStack(spacing: 8) {
                     Text("01:21")
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .font(Font.system(.caption2, design: .rounded).weight(.medium))
                         .monospacedDigit()
                         .foregroundStyle(appearance.usesArtworkTint ? highlightColor : .white.opacity(0.4))
                     
@@ -286,7 +286,7 @@ private struct NowPlayingAppearancePreview: View {
                     .frame(height: 14)
                     
                     Text("03:34")
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .font(Font.system(.caption2, design: .rounded).weight(.medium))
                         .monospacedDigit()
                         .foregroundStyle(appearance.usesArtworkTint ? baseColor : .white.opacity(0.4))
                 }
@@ -331,7 +331,7 @@ private struct NowPlayingAppearancePreview: View {
     private func previewSideButton(systemImage: String) -> some View {
         ZStack {
             Image(systemName: systemImage)
-                .font(.system(size: 18, weight: .semibold))
+                .font(Font.system(.title3).weight(.semibold))
                 .foregroundStyle(.white.opacity(0.52))
         }
         .frame(width: 34, height: 34)

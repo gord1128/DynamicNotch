@@ -59,7 +59,7 @@ struct PermissionsSettingsView: View {
 
                     HStack(spacing: 5) {
                         Image(systemName: item.isGranted ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                            .font(.system(size: 11, weight: .semibold))
+                            .font(Font.system(.caption2).weight(.semibold))
                         Text(
                             localized(
                                 item.isGranted ?
@@ -68,7 +68,7 @@ struct PermissionsSettingsView: View {
                                 fallback: item.isGranted ? "Granted" : "Needs access"
                             )
                         )
-                            .font(.system(size: 11, weight: .medium))
+                            .font(Font.system(.caption2).weight(.medium))
                     }
                     .foregroundStyle(item.isGranted ? .green : .orange)
                 }
@@ -91,7 +91,7 @@ struct PermissionsSettingsView: View {
                 .accessibilityIdentifier("\(item.accessibilityIdentifier).action")
             } else {
                 Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(Font.system(.title2).weight(.semibold))
                     .foregroundStyle(.green)
                     .accessibilityHidden(true)
             }

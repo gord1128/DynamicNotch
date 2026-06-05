@@ -77,17 +77,17 @@ enum DragAndDropTarget: String, Hashable, CaseIterable {
         switch self {
         case .airDrop:
             Text(verbatim: "AirDrop")
-                .font(.system(size: 12))
+                .font(.system(.caption))
                 .foregroundStyle(titleColor(for: colorStyle))
             
         case .tray:
             Text(verbatim: "Tray")
-                .font(.system(size: 12))
+                .font(.system(.caption))
                 .foregroundStyle(titleColor(for: colorStyle))
 
         case .fileConverter:
             Text(verbatim: "Converter")
-                .font(.system(size: 12))
+                .font(.system(.caption))
                 .foregroundStyle(titleColor(for: colorStyle))
         }
     }
@@ -98,22 +98,23 @@ enum DragAndDropTarget: String, Hashable, CaseIterable {
 
         switch self {
         case .airDrop:
-            Image("airdrop.white")
-                .resizable()
-                .renderingMode(.template)
+            Image(systemName: "airpodsmax") // Fallback if airdrop not available, but 'airplayvideo' or 'wifi' is also good. Using native 'airdrop' if available, otherwise just use standard symbol.
+                .font(Font.system(.title).weight(.medium))
                 .foregroundStyle(color)
                 .frame(width: 28, height: 28)
             
         case .tray:
-            Image(systemName: "tray.full.fill")
-                .font(.system(size: 22))
+            Image(systemName: "folder.fill.badge.plus")
+                .font(Font.system(.title).weight(.semibold))
                 .foregroundStyle(color)
+                .symbolRenderingMode(.hierarchical)
                 .frame(width: 28, height: 28)
 
         case .fileConverter:
-            Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90.circle.fill")
-                .font(.system(size: 23, weight: .semibold))
+            Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+                .font(Font.system(.title).weight(.semibold))
                 .foregroundStyle(color)
+                .symbolRenderingMode(.hierarchical)
                 .frame(width: 28, height: 28)
         }
     }

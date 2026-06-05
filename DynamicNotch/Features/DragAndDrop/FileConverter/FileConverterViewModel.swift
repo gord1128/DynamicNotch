@@ -309,6 +309,7 @@ struct FileConverterConversionOptions {
 
     init() {}
 
+    @MainActor
     init(settings: MediaAndFilesSettingsStore) {
         outputLocation = settings.fileConverterOutputLocation
         existingFileBehavior = settings.fileConverterExistingFileBehavior

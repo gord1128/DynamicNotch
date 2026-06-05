@@ -6,6 +6,7 @@ final class NotchConnectivityEventsHandler {
     private let bluetoothViewModel: BluetoothViewModel
     private let networkViewModel: NetworkViewModel
     private let settingsViewModel: SettingsViewModel
+    private let appLaunchTime = Date()
 
     init(
         notchViewModel: NotchViewModel,
@@ -20,6 +21,9 @@ final class NotchConnectivityEventsHandler {
     }
 
     func handleBluetooth(_ event: BluetoothEvent) {
+        // 스플래시(시그니처) 화면이 가려지지 않도록 앱 실행 후 3초간은 무시
+        guard Date().timeIntervalSince(appLaunchTime) > 3.0 else { return }
+        
         switch event {
         case .connected:
             guard settingsViewModel.isTemporaryActivityEnabled(.bluetooth) else { return }
@@ -37,6 +41,9 @@ final class NotchConnectivityEventsHandler {
     }
 
     func handleNetwork(_ event: NetworkEvent) {
+        // 스플래시(시그니처) 화면이 가려지지 않도록 앱 실행 후 3초간은 무시
+        guard Date().timeIntervalSince(appLaunchTime) > 3.0 else { return }
+
         switch event {
         case .wifiConnected:
             guard settingsViewModel.isTemporaryActivityEnabled(.wifi) else { return }

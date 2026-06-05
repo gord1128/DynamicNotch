@@ -15,6 +15,10 @@ struct IsDynamicIslandKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }
 
+struct IsActivityPresentationHiddenKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
 extension EnvironmentValues {
     var notchScale: CGFloat {
         get { self[NotchScaleKey.self] }
@@ -24,5 +28,10 @@ extension EnvironmentValues {
     var isDynamicIsland: Bool {
         get { self[IsDynamicIslandKey.self] }
         set { self[IsDynamicIslandKey.self] = newValue }
+    }
+    
+    var isActivityPresentationHidden: Bool {
+        get { self[IsActivityPresentationHiddenKey.self] }
+        set { self[IsActivityPresentationHiddenKey.self] = newValue }
     }
 }

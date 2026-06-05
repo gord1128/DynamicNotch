@@ -21,6 +21,7 @@ final class NotchEventCoordinator: ObservableObject {
     private let localTimerViewModel: LocalTimerViewModel
     private let homePageViewModel: HomePageViewModel
     private let calendarViewModel: CalendarViewModel
+    private let shortcutsViewModel: ShortcutsViewModel
     private let lockScreenManager: LockScreenManager
     private let systemHandler: NotchSystemEventsHandler
     private let focusHandler: NotchFocusEventsHandler
@@ -70,7 +71,8 @@ final class NotchEventCoordinator: ObservableObject {
         lockScreenManager: LockScreenManager,
         homePageViewModel: HomePageViewModel,
         localTimerViewModel: LocalTimerViewModel,
-        calendarViewModel: CalendarViewModel
+        calendarViewModel: CalendarViewModel,
+        shortcutsViewModel: ShortcutsViewModel
     ) {
         self.notchViewModel = notchViewModel
         self.networkViewModel = networkViewModel
@@ -83,6 +85,7 @@ final class NotchEventCoordinator: ObservableObject {
         self.localTimerViewModel = localTimerViewModel
         self.homePageViewModel = homePageViewModel
         self.calendarViewModel = calendarViewModel
+        self.shortcutsViewModel = shortcutsViewModel
         self.lockScreenManager = lockScreenManager
         self.systemHandler = NotchSystemEventsHandler(
             notchViewModel: notchViewModel,
@@ -132,7 +135,8 @@ final class NotchEventCoordinator: ObservableObject {
             notchViewModel: notchViewModel,
             settingsViewModel: settingsViewModel,
             localTimerViewModel: localTimerViewModel,
-            calendarViewModel: calendarViewModel
+            calendarViewModel: calendarViewModel,
+            shortcutsViewModel: shortcutsViewModel
         )
         self.calendarHandler = NotchCalendarEventsHandler(
             notchViewModel: notchViewModel,
@@ -189,20 +193,28 @@ final class NotchEventCoordinator: ObservableObject {
         observeSettingsChanges()
     }
     
+    func showSplashSignature() {
+        notchViewModel.send(.showTemporaryNotification(SplashNotchContent(), duration: 2.5))
+    }
+
     func checkFirstLaunch() {
+        showSplashSignature()
+        
         let hasSeenOnboarding = UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
         
         if !hasSeenOnboarding {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                 self.handleOnboardingEvent(.onboarding)
             }
         } else {
-            if nowPlayingViewModel.hasActiveSession &&
-                settingsViewModel.isLiveActivityEnabled(.nowPlaying) {
-                mediaHandler.handleNowPlaying(.started)
-            }
-            if settingsViewModel.isLiveActivityEnabled(.homePage) {
-                homePageHandler.handleHomePage(.homePageOn)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                if self.nowPlayingViewModel.snapshot?.isPlaying == true &&
+                    self.settingsViewModel.isLiveActivityEnabled(.nowPlaying) {
+                    self.mediaHandler.handleNowPlaying(.started)
+                }
+                if self.settingsViewModel.isLiveActivityEnabled(.homePage) {
+                    self.homePageHandler.handleHomePage(.homePageOn)
+                }
             }
         }
     }
@@ -223,7 +235,7 @@ final class NotchEventCoordinator: ObservableObject {
         #endif
 
         if markAsSeen {
-            if nowPlayingViewModel.hasActiveSession &&
+            if nowPlayingViewModel.snapshot?.isPlaying == true &&
                 settingsViewModel.isLiveActivityEnabled(.nowPlaying) {
                 mediaHandler.handleNowPlaying(.started)
             }
@@ -560,6 +572,7 @@ final class NotchEventCoordinator: ObservableObject {
             .store(in: &cancellables)
 
         settingsViewModel.mediaAndFiles.$isNowPlayingLiveActivityEnabled
+            .dropFirst()
             .removeDuplicates()
             .sink { [weak self] isEnabled in
                 guard let self else { return }
@@ -589,6 +602,7 @@ final class NotchEventCoordinator: ObservableObject {
         .store(in: &cancellables)
 
         settingsViewModel.mediaAndFiles.$isDownloadsLiveActivityEnabled
+            .dropFirst()
             .removeDuplicates()
             .sink { [weak self] isEnabled in
                 guard let self else { return }
@@ -604,6 +618,7 @@ final class NotchEventCoordinator: ObservableObject {
             .store(in: &cancellables)
 
         settingsViewModel.mediaAndFiles.$isDragAndDropLiveActivityEnabled
+            .dropFirst()
             .removeDuplicates()
             .sink { [weak self] isEnabled in
                 guard let self else { return }
@@ -677,6 +692,7 @@ final class NotchEventCoordinator: ObservableObject {
             .store(in: &cancellables)
 
         settingsViewModel.mediaAndFiles.$isTimerLiveActivityEnabled
+            .dropFirst()
             .removeDuplicates()
             .sink { [weak self] isEnabled in
                 guard let self else { return }
@@ -713,6 +729,7 @@ final class NotchEventCoordinator: ObservableObject {
             .store(in: &cancellables)
 
         settingsViewModel.lockScreen.$isLockScreenLiveActivityEnabled
+            .dropFirst()
             .removeDuplicates()
             .sink { [weak self] isEnabled in
                 guard let self else { return }
@@ -747,6 +764,8 @@ final class NotchEventCoordinator: ObservableObject {
             .store(in: &cancellables)
 
         settingsViewModel.homePage.$isHomePageLiveActivityEnabled
+            .dropFirst()
+            .removeDuplicates()
             .sink { [weak self] isEnabled in
                 if isEnabled {
                     self?.homePageHandler.handleHomePage(.homePageOn)

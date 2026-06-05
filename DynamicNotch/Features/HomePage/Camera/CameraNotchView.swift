@@ -13,6 +13,7 @@ struct CameraNotchView: View {
     let settings: HomePageSettingsStore
     let localTimerViewModel: LocalTimerViewModel
     let calendarViewModel: CalendarViewModel
+    let shortcutsViewModel: ShortcutsViewModel
     
     @StateObject private var cameraViewModel = CameraViewModel()
     @State private var isHovering: Bool = false
@@ -76,7 +77,7 @@ struct CameraNotchView: View {
                         }) {
                             ZStack {
                                 Image(systemName: isNotchLocked ? "lock.fill" : "lock.open.fill")
-                                    .foregroundStyle(isNotchLocked ? Color.accentColor : .white)
+                                    .foregroundStyle(isNotchLocked ? Color.accentColor : .primary)
                                     .id(isNotchLocked)
                                     .transition(.scale.animation(.spring(response: 0.3)))
                             }
@@ -94,13 +95,14 @@ struct CameraNotchView: View {
                                     settings: settings,
                                     homePages: .camera,
                                     localTimerViewModel: localTimerViewModel,
-                                    calendarViewModel: calendarViewModel
+                                    calendarViewModel: calendarViewModel,
+                                    shortcutsViewModel: shortcutsViewModel
                                 )
                             ))
                         }) {
                             ZStack {
                                 Image(systemName: isCameraLarge ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right")
-                                    .foregroundStyle(isCameraLarge ? Color.accentColor : .white)
+                                    .foregroundStyle(isCameraLarge ? Color.accentColor : .primary)
                                     .id(isCameraLarge)
                                     .transition(.scale.animation(.spring(response: 0.3)))
                             }
@@ -115,7 +117,7 @@ struct CameraNotchView: View {
                         }) {
                             ZStack {
                                 Image(systemName: "person.fill.and.arrow.left.and.arrow.right")
-                                    .foregroundStyle(isCameraMirrored ? Color.accentColor : .white)
+                                    .foregroundStyle(isCameraMirrored ? Color.accentColor : .primary)
                                     .id(isCameraMirrored)
                                     .transition(.scale.animation(.spring(response: 0.3)))
                             }
@@ -124,7 +126,7 @@ struct CameraNotchView: View {
                         }
                     }
                 }
-                .font(.system(size: 14))
+                .font(.system(.subheadline))
                 .padding(.bottom, 10)
                 .buttonStyle(.plain)
             }
@@ -149,7 +151,8 @@ struct CameraNotchView: View {
                         settings: settings,
                         homePages: .camera,
                         localTimerViewModel: localTimerViewModel,
-                        calendarViewModel: calendarViewModel
+                        calendarViewModel: calendarViewModel,
+                        shortcutsViewModel: shortcutsViewModel
                     )
                 ))
             }) {
@@ -160,12 +163,12 @@ struct CameraNotchView: View {
                     
                     VStack(spacing: 10) {
                         Image(systemName: "web.camera.fill")
-                            .font(.system(size: 32))
+                            .font(.system(.largeTitle))
                             .foregroundStyle(.white)
                         
                         Text(verbatim: "Start Camera")
                             .font(.headline)
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.primary)
                     }
                 }
             }
@@ -185,12 +188,12 @@ struct CameraNotchView: View {
                 
                 VStack(spacing: 10) {
                     Image(systemName: "video.slash.fill")
-                        .font(.system(size: 46))
+                        .font(.system(.largeTitle))
                         .foregroundColor(.gray)
                     
                     Text("Camera is unavailable")
                         .font(.headline)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.secondary)
                 }
             }
         }

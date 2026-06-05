@@ -64,7 +64,7 @@ private struct DownloadExpandedNotchContentView: View {
                 )
 
                 Text(download.directoryName)
-                    .font(.system(size: 12))
+                    .font(.system(.caption))
                     .foregroundStyle(.white.opacity(0.4))
                     .lineLimit(1)
             }
@@ -74,10 +74,10 @@ private struct DownloadExpandedNotchContentView: View {
             
             VStack(alignment: .trailing, spacing: 4) {
                 Text(progressLabel(for: download.progress))
-                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                    .font(Font.system(.subheadline, design: .rounded).weight(.semibold))
 
                 Text(speedLabel(for: download))
-                    .font(.system(size: 10, weight: .semibold, design: .rounded))
+                    .font(Font.system(.caption2, design: .rounded).weight(.semibold))
             }
             .foregroundStyle(Color.accentColor.opacity(0.8).gradient)
             .lineLimit(1)

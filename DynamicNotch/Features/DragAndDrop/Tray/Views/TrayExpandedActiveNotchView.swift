@@ -57,8 +57,9 @@ struct TrayExpandedActiveNotchView: View {
                 }
             } label: {
                 HStack(spacing: 5) {
-                    Image(systemName: "tray.full.fill")
-                        .font(.system(size: 18))
+                    Image(systemName: "folder.fill.badge.plus")
+                        .font(Font.system(.callout).weight(.semibold))
+                        .symbolRenderingMode(.hierarchical)
                     AnimatedLevelText(level: fileTrayViewModel.count, fontSize: 14)
                 }
             }
@@ -77,12 +78,12 @@ struct TrayExpandedActiveNotchView: View {
             } label: {
                 HStack(spacing: 5) {
                     Image(systemName: "trash.fill")
-                        .font(.system(size: 16))
+                        .font(.system(.callout))
                     if fileTrayViewModel.hasSelection {
                         AnimatedLevelText(level: fileTrayViewModel.selectedCount, fontSize: 14)
                     } else {
                         Text(verbatim: "All")
-                            .font(.system(size: 14))
+                            .font(.system(.subheadline))
                     }
                 }
             }
@@ -173,7 +174,7 @@ private struct TrayExpandedItemView: View {
                 .frame(width: 55, height: 47)
             
             Text(item.displayName)
-                .font(.system(size: 10, weight: .medium))
+                .font(Font.system(.caption2).weight(.medium))
                 .foregroundStyle(.white.opacity(0.86))
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
@@ -182,7 +183,11 @@ private struct TrayExpandedItemView: View {
         .frame(width: 80, height: 94)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(isSelected ? Color.accentColor.opacity(0.4) : .white.opacity(0.1))
+                .fill(isSelected ? AnyShapeStyle(Color.accentColor.opacity(0.4)) : AnyShapeStyle(.ultraThinMaterial))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .strokeBorder(isSelected ? Color.accentColor.opacity(0.8) : .white.opacity(0.15), lineWidth: 1)
+                )
         )
         .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay {
@@ -200,7 +205,7 @@ private struct TrayExpandedItemView: View {
             if showsRemoveButton {
                 Button(action: onRemove) {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(Font.system(.subheadline).weight(.semibold))
                         .foregroundStyle(.white.opacity(0.58))
                         .background(Circle().fill(.black.opacity(0.28)))
                 }
